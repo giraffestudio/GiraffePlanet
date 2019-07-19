@@ -5,18 +5,19 @@
 
 class Bullet
 {
-public:
-	Bullet();
-	void setPosition(float newx, float newy);
-	void update(float dt);
-	
-	float x = 666;
-	float y = 1000;
-	
 private:
-	float velocity = 600;
+	float Width = 9;
+	float Height = 37;
+public:
+	Bullet(float x_pos, float y_pos, float _velocity) : x(x_pos), y(y_pos), velocity(_velocity)	{};
+	
+	void setPosition(int newx, int newy);
+	void update(float dt);
+	float x;
+	float y;
 
-
-
+	
+	sf::Rect<float> boundingBox = {0,0,Width,Height};
+	float velocity;
 };
 

@@ -1,11 +1,6 @@
 #include "Bullet.h"
 
-Bullet::Bullet()
-{
-
-}
-
-void Bullet::setPosition(float newx, float newy)
+void Bullet::setPosition(int newx, int newy)
 {
 	x = newx;
 	y = newy;
@@ -22,7 +17,9 @@ void Bullet::setPosition(float newx, float newy)
 
 void Bullet::update(float dt)
 {
-	float moveY;
-	moveY = dt * velocity;
+	float moveY = dt * velocity;
 	setPosition(x, y - moveY);
+	
+	boundingBox.left = x - 4.5;
+	boundingBox.top = y;
 }
