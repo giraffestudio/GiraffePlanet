@@ -13,20 +13,20 @@ public:
 	
 	std::vector<sf::Texture> DamageTextures;
 	sf::Texture Texture;
-	std::vector<sf::Sprite> DamageSptites;
+	std::vector<sf::Sprite> DamageSprites;
 	sf::Sprite Sprite;
 
-	double x=960;
-	double y=900;
-	double Width=112;
-	double Height = 75;
-	double maxSpeed = 550; // px for sec
-	double velocityX = maxSpeed;
-	double velocityY = 0;
-	double HP = 4;
+	float x=960;
+	float y=900;
+	float Width=112;
+	float Height = 75;
+	float maxSpeed = 550; // px for sec
+	float velocityX = maxSpeed;
+	float velocityY = 0;
+	unsigned int HP = 4;
 
 	sf::Rect<float>boundingBox = { 0,0,Width,Height };
 
-	void setPosition(double newx, double newy);
+	void setPosition(float newx, float newy);
 };
 

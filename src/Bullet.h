@@ -11,7 +11,7 @@ private:
 public:
 	Bullet(float x_pos, float y_pos, float _velocity) : x(x_pos), y(y_pos), velocity(_velocity)	{};
 	
-	void setPosition(int newx, int newy);
+	void setPosition(float newx, float newy);
 	void update(float dt);
 	float x;
 	float y;

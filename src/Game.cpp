@@ -89,7 +89,7 @@ void Game::Init()
 	  for (int row = 0; row < enemies_rows; ++row)
 			for (int col = 0; col < enemies_cols; ++col)
 		{
-			Enemies.emplace_back(Enemy(100+(1720.f/(enemies_cols-1))*static_cast<float>(col), 100+150*row));
+			Enemies.emplace_back(Enemy(100+(1720.f/(enemies_cols-1))*static_cast<float>(col), 100.0f+150.0f*row));
 		}
 }
 
@@ -131,7 +131,7 @@ void Game::Update(float dt)
 			sound.play();
 			player.HP--;
 			bullet = EnemyBullets.erase(bullet);
-			if (player.HP == 0)Window.close();
+			if (player.HP == 0) Window.close();
 		}
 	}
 	player.update(dt);
@@ -160,6 +160,7 @@ void Game::Draw()
 	}
 
 	Window.draw(player.Sprite);
+	if (player.HP < 4 && player.HP>0) Window.draw( player.DamageSprites[ 3-player.HP ] );
 	Window.display();
 }
 
