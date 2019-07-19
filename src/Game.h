@@ -8,6 +8,7 @@
 #include <SFML/Audio.hpp>
 #include "Player.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 class Game
 {
@@ -20,17 +21,32 @@ public:
 private:
 	void Update(float dt);
 	void Draw();
-	sf::Clock clock;	
+	sf::Clock FrameClock;	
 	sf::Time dt;
 	Player player;
-	std::vector<Bullet> Bullets;
+	std::vector<Bullet> PlayerBullets;
+	std::vector<Bullet> EnemyBullets;
+	std::vector<Enemy> Enemies;
 	void addBullet();
 
-	sf::Texture BulletTexture;
-	sf::Sprite BulletSprite;
+	sf::Texture EnemyBulletTexture;
+	sf::Sprite EnemyBulletSprite;
 	
-	sf::SoundBuffer pew;
+	sf::Texture PlayerBulletTexture;
+	sf::Sprite PlayerBulletSprite;
+
+	sf::Texture EnemyTexture;
+	sf::Sprite EnemySprite;
+	
+	sf::SoundBuffer sbGameOver;
+	sf::SoundBuffer sbPlayerFire;
 	sf::Sound sound;
 	
+	sf::Clock EnemyFireClock;
+	sf::Clock fireClock;
+	sf::Time fireDt;
+	double fireRate = 5; //  (Hz)
+
+	void EnemyFire();
 
 };
