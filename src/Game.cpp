@@ -33,11 +33,11 @@ void Game::Init()
 	Window.setFramerateLimit(75);
 	Window.setMouseCursorVisible(false);
 
-	BulletTexture.loadFromFile("./Resource/PNG/Lasers/laserBlue03.png");
+	BulletTexture.loadFromFile("../res/PNG/Lasers/laserBlue03.png");
 	BulletSprite.setTexture(BulletTexture);
 	BulletSprite.setOrigin(4, 0);
 
-	pew.loadFromFile("./Resource/Sound/Laser_1.wav");
+	pew.loadFromFile("../res/Sound/Laser_1.wav");
 	
 	sound.setBuffer(pew);
 

@@ -2,7 +2,7 @@
 
 Player::Player()
 {
-	Texture.loadFromFile("./Resource/PNG/playerShip2_orange.png");
+	Texture.loadFromFile("../res/PNG/playerShip2_orange.png");
 	Sprite.setTexture(Texture);
 	Sprite.setOrigin(56, 0);
 	Sprite.setPosition(x, y);
