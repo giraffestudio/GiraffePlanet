@@ -108,6 +108,7 @@ void Game::Update(float dt)
 			it->update(dt);
 			if (bullet->boundingBox.intersects(it->boundingBox) == true)
 			{
+				it->rotation += 15-rand()%30;
 				it->HP--;
 				if (it->HP == 0)
 				{
@@ -144,6 +145,7 @@ void Game::Draw()
 	for (auto& enemy : Enemies)
 	{
 		EnemySprite.setPosition(enemy.x, enemy.y);
+		EnemySprite.setRotation(enemy.rotation);
 		Window.draw(EnemySprite);
 	}
 

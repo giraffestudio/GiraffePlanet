@@ -13,6 +13,7 @@ public:
 	float y;
 	float Width = 93;
 	float Height = 84;
+	float rotation = 0;
 	float HP = 2;
 	
 	sf::Rect<float> boundingBox = { 0,0,Width,Height };
