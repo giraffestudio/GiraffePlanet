@@ -2,16 +2,16 @@
 
 Player::Player()
 {
-	Texture.loadFromFile("./Resource/PNG/playerShip2_orange.png");
+	Texture.loadFromFile("../res/PNG/playerShip2_orange.png");
 	Sprite.setTexture(Texture);
 	Sprite.setOrigin(56, 75 / 2);
 	Sprite.setPosition(x, y);
 
 	
 	DamageTextures.reserve(3);
-	DamageTextures[0].loadFromFile("./Resource/PNG/Damage/playerShip2_damage1.png" ) ;
-	DamageTextures[1].loadFromFile("./Resource/PNG/Damage/playerShip2_damage2.png" ) ;
-	DamageTextures[2].loadFromFile("./Resource/PNG/Damage/playerShip2_damage3.png") ;
+	DamageTextures[0].loadFromFile("../res/PNG/Damage/playerShip2_damage1.png" ) ;
+	DamageTextures[1].loadFromFile("../res/PNG/Damage/playerShip2_damage2.png" ) ;
+	DamageTextures[2].loadFromFile("../res/PNG/Damage/playerShip2_damage3.png") ;
 }
 
 void Player::update(float dt)

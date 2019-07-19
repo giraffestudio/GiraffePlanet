@@ -60,27 +60,27 @@ void Game::Init()
 
 	// Loading of textures
 	// * Bullet
-	EnemyBulletTexture.loadFromFile("./Resource/PNG/Lasers/laserRed03.png");
+	EnemyBulletTexture.loadFromFile("../res/PNG/Lasers/laserRed03.png");
 	EnemyBulletSprite.setTexture(EnemyBulletTexture);
 	EnemyBulletSprite.setOrigin(4.5, 0);
 	EnemyBulletTexture.setSmooth(true);
 	
-	PlayerBulletTexture.loadFromFile("./Resource/PNG/Lasers/laserBlue03.png");
+	PlayerBulletTexture.loadFromFile("../res/PNG/Lasers/laserBlue03.png");
 	PlayerBulletSprite.setTexture(PlayerBulletTexture);
 	PlayerBulletSprite.setOrigin(4.5, 0);
 	PlayerBulletTexture.setSmooth(true);
 
 	// * Enemies
-	EnemyTexture.loadFromFile("./Resource/PNG/Enemies/enemyGreen1.png");
+	EnemyTexture.loadFromFile("../res/PNG/Enemies/enemyGreen1.png");
 	EnemySprite.setTexture(EnemyTexture);
 	EnemySprite.setOrigin(46.5, 42);
 	EnemyTexture.setSmooth(true);
 
 	// Loading of sounds
 	//* Game Over
-	sbGameOver.loadFromFile("./Resource/Sound/GameOver_1.wav");
+	sbGameOver.loadFromFile("../res/Sound/GameOver_1.wav");
 	// * Laser
-	sbPlayerFire.loadFromFile("./Resource/Sound/Laser_1.wav");
+	sbPlayerFire.loadFromFile("../res/Sound/Laser_1.wav");
 	
 	sound.setBuffer(sbPlayerFire);
 
