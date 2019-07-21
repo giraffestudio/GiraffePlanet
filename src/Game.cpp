@@ -99,20 +99,32 @@ void Game::Update(float dt)
 	PlayerBullets.erase( std::remove_if(PlayerBullets.begin(), PlayerBullets.end(), isBulletOffScreen), PlayerBullets.end() );
 	EnemyBullets.erase(std::remove_if(EnemyBullets.begin(), EnemyBullets.end(), isBulletOffScreen), EnemyBullets.end());
 
-	// Enemy - Player bullets cd
+	player.update(dt);
+
+	for (auto& enemy : Enemies)
+	{
+		enemy.update(dt);
+		// Player - enemy collision detection
+		if (enemy.boundingBox.intersects(player.boundingBox) == true)
+		{
+			Window.close();
+		}
+	}
+	
+	// Enemy - Player bullets collision detection
 	for (auto bullet=PlayerBullets.begin(); bullet!=PlayerBullets.end(); ++bullet)
 	{
 		bullet->update(dt);
-		for (std::vector<Enemy>::iterator it=Enemies.begin(); it!=Enemies.end(); it++)
+		for (std::vector<Enemy>::iterator enemy=Enemies.begin(); enemy!=Enemies.end(); ++enemy)
 		{
-			it->update(dt);
-			if (bullet->boundingBox.intersects(it->boundingBox) == true)
+			
+			if (bullet->boundingBox.intersects(enemy->boundingBox) == true)
 			{
-				it->rotation += 15-rand()%30;
-				it->HP--;
-				if (it->HP == 0)
+				enemy->rotation += 15-rand()%30;
+				enemy->HP--;
+				if (enemy->HP == 0)
 				{
-					it = Enemies.erase(it);
+					enemy = Enemies.erase(enemy);
 					
 				}
 				bullet = PlayerBullets.erase(bullet);
@@ -122,7 +134,7 @@ void Game::Update(float dt)
 		if (bullet == PlayerBullets.end()) break;
 	}
 	
-	// Player - Enemy bullets cd
+	// Player - Enemy bullets collision detection
 	for (auto bullet = EnemyBullets.begin(); bullet != EnemyBullets.end(); ++bullet)
 	{
 		bullet->update(dt);
@@ -135,7 +147,6 @@ void Game::Update(float dt)
 			if (player.HP == 0) Window.close();
 		}
 	}
-	player.update(dt);
 }
 
 void Game::Draw()
