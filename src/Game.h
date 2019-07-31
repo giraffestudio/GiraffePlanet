@@ -29,15 +29,14 @@ private:
 	std::vector<Enemy> Enemies;
 	void addBullet();
 
+	sf::Texture spriteSheet;
+	
 	sf::Texture EnemyBulletTexture;
 	sf::Sprite EnemyBulletSprite;
 	
 	sf::Texture PlayerBulletTexture;
 	sf::Sprite PlayerBulletSprite;
 
-	sf::Texture EnemyTexture;
-	sf::Sprite EnemySprite;
-	
 	sf::SoundBuffer sbGameOver;
 	sf::SoundBuffer sbPlayerFire;
 	sf::Sound sound;

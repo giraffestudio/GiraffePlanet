@@ -5,16 +5,25 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-class Player
+class Player : public sf::Drawable
 {
+private:
+	sf::IntRect spriteSheetSubRect = { 112,716,112,75 };
+	sf::Sprite Sprite;
+
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 public:
+
 	Player();
+	void setTexture(sf::Texture &spriteSheet);
+	
 	void update(float dt);
 	
 	std::vector<sf::Texture> DamageTextures;
-	sf::Texture Texture;
+	
 	std::vector<sf::Sprite> DamageSprites;
-	sf::Sprite Sprite;
+	
 
 	float x=960;
 	float y=900;

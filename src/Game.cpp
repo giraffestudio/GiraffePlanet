@@ -11,9 +11,7 @@ void Game::Run()
 		{
 			if (event.type == sf::Event::KeyPressed)
 			{
-	
 				if (event.key.code == sf::Keyboard::Escape) Window.close();
-				if (event.key.code == sf::Keyboard::Space) addBullet();
 			}
 			if (event.type == sf::Event::Closed) Window.close();
 		}
@@ -59,6 +57,9 @@ void Game::Init()
 	Window.setMouseCursorVisible(false);
 
 	// Loading of textures
+	spriteSheet.loadFromFile("../RES/SpriteSheet/sheet.png");
+	player.setTexture(spriteSheet);
+
 	// * Bullet
 	EnemyBulletTexture.loadFromFile("../res/PNG/Lasers/laserRed03.png");
 	EnemyBulletSprite.setTexture(EnemyBulletTexture);
@@ -70,12 +71,6 @@ void Game::Init()
 	PlayerBulletSprite.setOrigin(4.5, 0);
 	PlayerBulletTexture.setSmooth(true);
 
-	// * Enemies
-	EnemyTexture.loadFromFile("../res/PNG/Enemies/enemyGreen1.png");
-	EnemySprite.setTexture(EnemyTexture);
-	EnemySprite.setOrigin(46.5, 42);
-	EnemyTexture.setSmooth(true);
-
 	// Loading of sounds
 	//* Game Over
 	sbGameOver.loadFromFile("../res/Sound/GameOver_1.wav");
@@ -85,12 +80,12 @@ void Game::Init()
 	sound.setBuffer(sbPlayerFire);
 
 	float enemies_rows = 4;
-	float enemies_cols = 16;
+	float enemies_cols = 12;
 	  for (int row = 0; row < enemies_rows; ++row)
 			for (int col = 0; col < enemies_cols; ++col)
-		{
-			Enemies.emplace_back(Enemy(100+(1720.f/(enemies_cols-1))*static_cast<float>(col), 100.0f+150.0f*row));
-		}
+			{
+				Enemies.emplace_back(Enemy(100+(1720.f/(enemies_cols-1))*static_cast<float>(col), 100.0f+150.0f*row,spriteSheet));
+			}
 }
 
 void Game::Update(float dt)
@@ -124,8 +119,7 @@ void Game::Update(float dt)
 				enemy->HP--;
 				if (enemy->HP == 0)
 				{
-					enemy = Enemies.erase(enemy);
-					
+					enemy = Enemies.erase(enemy);		
 				}
 				bullet = PlayerBullets.erase(bullet);
 				break;
@@ -155,9 +149,7 @@ void Game::Draw()
 	
 	for (auto& enemy : Enemies)
 	{
-		EnemySprite.setPosition(enemy.x, enemy.y);
-		EnemySprite.setRotation(enemy.rotation);
-		Window.draw(EnemySprite);
+		Window.draw(enemy);
 	}
 
 	for (auto& bullet : PlayerBullets)
@@ -172,7 +164,7 @@ void Game::Draw()
 		Window.draw(EnemyBulletSprite);
 	}
 
-	Window.draw(player.Sprite);
+	Window.draw(player);
 	if (player.HP < 4 && player.HP>0) Window.draw( player.DamageSprites[ 3-player.HP ] );
 	Window.display();
 }

@@ -2,12 +2,6 @@
 
 Player::Player()
 {
-	Texture.loadFromFile("../res/PNG/playerShip2_orange.png");
-	Sprite.setTexture(Texture);
-	Sprite.setOrigin(56, 75 / 2);
-	Sprite.setPosition(x, y);
-
-	
 	DamageTextures.emplace_back();
 	DamageTextures.emplace_back();
 	DamageTextures.emplace_back();
@@ -28,6 +22,18 @@ Player::Player()
 		ds.setOrigin(56, 75 / 2);
 	}
 	
+}
+
+void Player::setTexture(sf::Texture& spriteSheet)
+{
+	Sprite = sf::Sprite(spriteSheet, spriteSheetSubRect);
+	Sprite.setOrigin(56, 75 / 2);
+	Sprite.setPosition(x, y);
+}
+
+void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(Sprite, states);
 }
 
 void Player::update(float dt)
