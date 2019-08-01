@@ -4,38 +4,42 @@
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include "ResourceMan.h"
+#include "Bullet.h"
 
 class Player : public sf::Drawable
 {
 private:
-	sf::IntRect spriteSheetSubRect = { 112,716,112,75 };
+	ResourceMan* resources = nullptr;
+	sf::Texture* spriteSheet = nullptr;
 	sf::Sprite Sprite;
+	sf::Clock fireClock;
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 public:
 
-	Player();
-	void setTexture(sf::Texture &spriteSheet);
-	
-	void update(float dt);
-	
-	std::vector<sf::Texture> DamageTextures;
-	
-	std::vector<sf::Sprite> DamageSprites;
-	
+	float Width = 112.0f;
+	float Height = 75.0f;
 
-	float x=960;
-	float y=900;
-	float Width=112;
-	float Height = 75;
-	float maxSpeed = 550; // px for sec
+	sf::Rect<float>boundingBox = { 0,0,Width,Height };		// Watch for member initialization order !
+	sf::IntRect spriteSheetSubRect = { 112,716,112,75 };
+
+	float x = 960;
+	float y = 900;
+
+	float maxSpeed = 550;	//	px per sec
 	float velocityX = maxSpeed;
 	float velocityY = 0;
+	float fireRate = 5.0f;		// times per sec
 	unsigned int HP = 4;
 
-	sf::Rect<float>boundingBox = { 0,0,Width,Height };
+	std::vector<sf::Sprite> DamageSprites;
+	std::vector<Bullet> bullets;
 
+	void init(sf::Texture* pSpriteSheet);
+	void update(float dt);
 	void setPosition(float newx, float newy);
+	void fire();
 };
 

@@ -9,43 +9,32 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Level_1.h"
+#include "ResourceMan.h"
 
 class Game
 {
+	friend class GameState;
+
 public:
+	~Game();
 	void Run();
 	void Init();
-	sf::RenderWindow Window;
+	sf::RenderWindow window;
 	sf::Mouse mouse;
 
 private:
-	void Update(float dt);
-	void Draw();
-	sf::Clock FrameClock;	
-	sf::Time dt;
-	Player player;
-	std::vector<Bullet> PlayerBullets;
-	std::vector<Bullet> EnemyBullets;
-	std::vector<Enemy> Enemies;
-	void addBullet();
-
 	sf::Texture spriteSheet;
-	
-	sf::Texture EnemyBulletTexture;
-	sf::Sprite EnemyBulletSprite;
-	
-	sf::Texture PlayerBulletTexture;
-	sf::Sprite PlayerBulletSprite;
-
 	sf::SoundBuffer sbGameOver;
 	sf::SoundBuffer sbPlayerFire;
 	sf::Sound sound;
-	
-	sf::Clock EnemyFireClock;
-	sf::Clock fireClock;
-	sf::Time fireDt;
-	double fireRate = 5; //  (Hz)
+	sf::Clock FrameClock;
+	sf::Time frameRenderTime;
 
-	void EnemyFire();
+	//ResourceMan resourceMan;
+
+	Player player;
+
+	Level_1* level_1 = nullptr;
 
 };

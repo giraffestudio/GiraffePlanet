@@ -3,21 +3,23 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-class Bullet
+class Bullet : public sf::Drawable
 {
 private:
-	float Width = 9;
-	float Height = 37;
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
 public:
-	Bullet(float x_pos, float y_pos, float _velocity) : x(x_pos), y(y_pos), velocity(_velocity)	{};
-	
-	void setPosition(float newx, float newy);
-	void update(float dt);
+	enum Type { PLAYER_BULLET, ENEMY_BULLET};
 	float x;
 	float y;
-
-	
-	sf::Rect<float> boundingBox = {0,0,Width,Height};
 	float velocity;
+	float Width = 9;
+	float Height = 37;
+	sf::Rect<float> boundingBox = { 0,0,Width,Height };
+	sf::Sprite Sprite;
+	
+	Bullet(float x_pos, float y_pos, float _velocity, sf::Texture* spriteSheet, Type bulleType);
+	void setPosition(float newx, float newy);
+	void update(float dt);
 };
 
