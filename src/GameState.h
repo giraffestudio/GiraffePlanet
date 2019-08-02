@@ -12,13 +12,13 @@ private:
 public:
 	Player* player;
 	sf::RenderWindow* window;
-	sf::Texture* spriteSheet;
+	ResourceMan* resources;
 
-	GameState(Player* pplayer, sf::RenderWindow* pwindow, sf::Texture* pspriteSheet)
+	GameState(Player* pplayer, sf::RenderWindow* pwindow, ResourceMan* pResources)
 	{
 		player = pplayer;
 		window = pwindow;
-		spriteSheet = pspriteSheet;
+		resources = pResources;
 	}
 
 	virtual void draw() = 0 ;

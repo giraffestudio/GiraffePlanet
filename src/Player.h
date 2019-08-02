@@ -11,7 +11,7 @@ class Player : public sf::Drawable
 {
 private:
 	ResourceMan* resources = nullptr;
-	sf::Texture* spriteSheet = nullptr;
+	
 	sf::Sprite Sprite;
 	sf::Clock fireClock;
 
@@ -23,8 +23,7 @@ public:
 	float Height = 75.0f;
 
 	sf::Rect<float>boundingBox = { 0,0,Width,Height };		// Watch for member initialization order !
-	sf::IntRect spriteSheetSubRect = { 112,716,112,75 };
-
+	
 	float x = 960;
 	float y = 900;
 
@@ -37,7 +36,7 @@ public:
 	std::vector<sf::Sprite> DamageSprites;
 	std::vector<Bullet> bullets;
 
-	void init(sf::Texture* pSpriteSheet);
+	void init(ResourceMan* pResources);
 	void update(float dt);
 	void setPosition(float newx, float newy);
 	void fire();

@@ -14,7 +14,7 @@
 
 class Game
 {
-	friend class GameState;
+	//friend class GameState;
 
 public:
 	~Game();
@@ -24,17 +24,13 @@ public:
 	sf::Mouse mouse;
 
 private:
-	sf::Texture spriteSheet;
-	sf::SoundBuffer sbGameOver;
-	sf::SoundBuffer sbPlayerFire;
-	sf::Sound sound;
+	
+	ResourceMan resources;
+
 	sf::Clock FrameClock;
 	sf::Time frameRenderTime;
 
-	//ResourceMan resourceMan;
-
 	Player player;
-
 	Level_1* level_1 = nullptr;
 
 };

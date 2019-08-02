@@ -1,12 +1,13 @@
 #include "Enemy.h"
 
-Enemy::Enemy(float x_pos, float y_pos, sf::Texture* pSpriteSheet)
+Enemy::Enemy(float x_pos, float y_pos, ResourceMan* pResources)
 {
 	x = x_pos;
 	y = y_pos;
-	spriteSheet = pSpriteSheet;
 
-	Sprite = sf::Sprite(*spriteSheet, ssRect_green);
+	resources = pResources;
+
+	Sprite = sf::Sprite(resources->getSpriteSheet(), resources->getSpriteRect("enemyGreen1.png"));
 	Sprite.setPosition(x, y);
 	Sprite.setOrigin(46.5, 42);
 }
@@ -32,7 +33,7 @@ void Enemy::update(float dt)
 
 void Enemy::fire()
 {
-	bullets.emplace_back(x, y, -700.0f, spriteSheet, Bullet::Type::ENEMY_BULLET);
+	bullets.emplace_back(x, y, -700.0f, resources, Bullet::Type::ENEMY_BULLET);
 }
 
 void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const

@@ -1,16 +1,17 @@
 #include "Player.h"
 
 
-void Player::init(sf::Texture* pSpriteSheet)
+void Player::init( ResourceMan* pResourceManager )
 {
-	spriteSheet = pSpriteSheet;
-	Sprite = sf::Sprite(*spriteSheet, spriteSheetSubRect);
-	Sprite.setOrigin(56, 75 / 2);
+	resources = pResourceManager;
+	
+	Sprite = sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_orange.png" ) );
+	Sprite.setOrigin( 56, 75 / 2 );
 	Sprite.setPosition(x, y);
 
-	DamageSprites.emplace_back(sf::Sprite(*spriteSheet, {0, 866, 112, 75}));
-	DamageSprites.emplace_back(sf::Sprite(*spriteSheet, { 0, 791, 112, 75 }));
-	DamageSprites.emplace_back(sf::Sprite(*spriteSheet, { 0, 716, 112, 75 }));
+	DamageSprites.emplace_back( sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_damage1.png" ) ) );
+	DamageSprites.emplace_back( sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_damage2.png" ) ) );
+	DamageSprites.emplace_back( sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_damage3.png" ) ) );
 
 	for (auto& ds : DamageSprites) ds.setOrigin(56, 75 / 2);
 }
@@ -85,7 +86,7 @@ void Player::fire()
     if (fireClock.getElapsedTime().asSeconds() < 1.0f / fireRate) return;
 
 	// add new bullet to vector of player's bullets
- 	bullets.emplace_back(x, y, 900.0f, spriteSheet, Bullet::Type::PLAYER_BULLET);
+ 	bullets.emplace_back(x, y, 900.0f, resources, Bullet::Type::PLAYER_BULLET);
 
 	// restart timer
 	fireClock.restart();

@@ -5,10 +5,11 @@ void Bullet::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(Sprite, states);
 }
 
-Bullet::Bullet(float x_pos, float y_pos, float _velocity, sf::Texture* spriteSheet, Type bulletType)
+Bullet::Bullet(float x_pos, float y_pos, float _velocity, ResourceMan* pResources, Type bulletType)
 {
-	if(bulletType==Type::PLAYER_BULLET)	Sprite = sf::Sprite(*spriteSheet, { 856,57,9,37 });
-	if(bulletType==Type::ENEMY_BULLET) Sprite = sf::Sprite(*spriteSheet, { 854,639,9,37 });
+	resources = pResources;
+	if ( bulletType == Type::PLAYER_BULLET ) Sprite = sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "laserBlue03.png" ) );
+	if ( bulletType == Type::ENEMY_BULLET ) Sprite = sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "laserRed03.png" ) );
 	
 	Sprite.setOrigin(9.0 / 2.0f, 37.0f / 2.0f);
 

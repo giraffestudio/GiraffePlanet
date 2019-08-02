@@ -8,7 +8,7 @@ void Level_1::Init()
 	for (int row = 0; row < enemies_rows; ++row)
 		for (int col = 0; col < enemies_cols; ++col)
 		{
-			Enemies.emplace_back(Enemy(100 + (1720.f / (enemies_cols - 1)) * static_cast<float>(col), 100.0f + 150.0f * row, spriteSheet));
+			Enemies.emplace_back( Enemy( 100 + ( 1720.f / ( enemies_cols - 1 ) ) * static_cast<float>( col ), 100.0f + 150.0f * row, resources ) );
 		}
 }
 
