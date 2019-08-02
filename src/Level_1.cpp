@@ -29,6 +29,7 @@ void Level_1::update(const float dt)
 {
 	// update player (and his bullets as well)
 	player->update(dt);
+	if ( Enemies.size() == 0 ) return;
 
 	// handle enemies firing
 	if (enemyFireClock.getElapsedTime().asSeconds() >= 1.0f / enemyFireRate)
