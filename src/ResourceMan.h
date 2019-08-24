@@ -13,17 +13,18 @@ class ResourceMan
 private:	
 	sf::Texture spriteSheet;
 	std::map<std::string, sf::IntRect> spriteRects;
-	
+	std::map<std::string, sf::SoundBuffer> SoundS;
+	std::map < std::string, sf::Texture > Backgrounds;
 	void LoadSpriteSheetXML(std::string fileName);
 
 public:
 	sf::IntRect getSpriteRect(std::string name);
+	void playSample( std::string name );
 	sf::Texture& getSpriteSheet() { return spriteSheet; }
+	sf::Texture& getBackground( std::string name );
 	void LoadResources();
 
 	// some shitty stuff to get rid of
-	sf::SoundBuffer sbGameOver;
-	sf::SoundBuffer sbPlayerFire;
 	sf::Sound sound;
 };
 

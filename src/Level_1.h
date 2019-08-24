@@ -11,6 +11,8 @@ class Level_1 :	public GameState
 private:
 	sf::Clock enemyFireClock;
 	float enemyFireRate = 2.0f;		// times per second
+	sf::Music music;
+	sf::Sprite Background;
 
 public:
 	Level_1(Player* pplayer, sf::RenderWindow* pwindow, ResourceMan* pResources) : GameState (pplayer, pwindow, pResources) {};

@@ -185,6 +185,10 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourceMan.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\shader\shader.frag" />
+    <None Include="..\shader\shader.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -6,13 +6,20 @@ void ResourceMan::LoadResources()
 	LoadSpriteSheetXML("../res/Spritesheet/sheet.xml");
 
 	// Loading of sounds
-//* Game Over
-	sbGameOver.loadFromFile( "../res/Sound/GameOver_1.wav" );
-	// * Laser
-	sbPlayerFire.loadFromFile( "../res/Sound/Laser_1.wav" );
-
-	sound.setBuffer( sbPlayerFire );
+	//* Game Over
+	sf::SoundBuffer sound;
+	sound.loadFromFile( "../res/Sound/Laser_1.wav" );
+	SoundS.insert( std::make_pair( "Laser_1", sound ) );
 	
+	sound.loadFromFile( "../res/Sound/GameOver_1.wav" );
+	SoundS.insert( std::make_pair( "GameOver_1", sound ) );
+
+	//load backgrounds
+
+	sf::Texture tex;
+	tex.loadFromFile( "../res/Backgrounds/purple.png" );
+	tex.setRepeated( true );
+	Backgrounds.insert( std::make_pair( "Purplee",tex ));
 }
 
 void ResourceMan::LoadSpriteSheetXML(std::string fileName)
@@ -57,4 +64,14 @@ void ResourceMan::LoadSpriteSheetXML(std::string fileName)
 sf::IntRect ResourceMan::getSpriteRect(std::string name)
 {
 	return spriteRects[name];
+}
+
+void ResourceMan::playSample( std::string name )
+{
+	sound.setBuffer( SoundS[name] );
+	sound.play();
+}
+sf::Texture& ResourceMan::getBackground( std::string name )
+{
+	return Backgrounds[name];
 }

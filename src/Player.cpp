@@ -90,4 +90,7 @@ void Player::fire()
 
 	// restart timer
 	fireClock.restart();
+
+	// play some  shitty sound
+	resources->playSample("Laser_1");
 }

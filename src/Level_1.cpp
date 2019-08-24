@@ -10,11 +10,17 @@ void Level_1::Init()
 		{
 			Enemies.emplace_back( Enemy( 100 + ( 1720.f / ( enemies_cols - 1 ) ) * static_cast<float>( col ), 100.0f + 150.0f * row, resources ) );
 		}
+	music.openFromFile( "../RES/sound/Droid.WAV" );
+	music.play();
+
+	Background.setTexture( resources->getBackground( "Purplee" ) );
+	Background.setTextureRect( { 0, 0, 1920, 1080 } );
 }
 
 void Level_1::draw()
-{
-	window->clear(sf::Color::Black);
+	{
+	//window->clear(sf::Color::Black);
+	window->draw( Background );
 
 	// draw our brave player
 	window->draw(*player);
