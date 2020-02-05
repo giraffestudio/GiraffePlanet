@@ -13,15 +13,14 @@ void Level_1::Init()
 	music.openFromFile( "../RES/sound/Droid.WAV" );
 	music.play();
 
-	Background.setTexture( resources->getBackground( "Purplee" ) );
+	Background.setTexture( resources->getBackground( "Black" ) );
 	Background.setTextureRect( { 0, 0, 1920, 1080 } );
 }
 
 void Level_1::draw()
 	{
-	//window->clear(sf::Color::Black);
 	window->draw( Background );
-
+	 
 	// draw our brave player
 	window->draw(*player);
 	
@@ -96,6 +95,7 @@ void Level_1::handleCollisions()
 			if (bullet->boundingBox.intersects(enemy->boundingBox) == true)
 			{
 				enemy->rotation += 15 - rand() % 30;
+				
 				enemy->move(0,-10);
 				enemy->HP--;
 				if (enemy->HP == 0)

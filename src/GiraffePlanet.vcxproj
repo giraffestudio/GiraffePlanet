@@ -173,6 +173,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GiraffePlanet.cpp" />
     <ClCompile Include="Level_1.cpp" />
+    <ClCompile Include="MeinMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResourceMan.cpp" />
   </ItemGroup>
@@ -182,6 +183,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Level_1.h" />
+    <ClInclude Include="MeinMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourceMan.h" />
   </ItemGroup>

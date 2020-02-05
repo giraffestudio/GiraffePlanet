@@ -29,6 +29,8 @@ void Enemy::update(float dt)
 	{
 		bullet.update(dt);
 	}
+
+	this->Sprite.setRotation( rotation );
 }
 
 void Enemy::fire()

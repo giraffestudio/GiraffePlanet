@@ -20,6 +20,9 @@ void ResourceMan::LoadResources()
 	tex.loadFromFile( "../res/Backgrounds/purple.png" );
 	tex.setRepeated( true );
 	Backgrounds.insert( std::make_pair( "Purplee",tex ));
+	tex.loadFromFile( "../res/Backgrounds/black.png" );
+	tex.setRepeated( true );
+	Backgrounds.insert( std::make_pair( "Black", tex ) );
 }
 
 void ResourceMan::LoadSpriteSheetXML(std::string fileName)
