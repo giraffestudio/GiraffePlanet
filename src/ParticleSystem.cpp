@@ -1,17 +1,17 @@
 #include "ParticleSystem.h"
 #include <iostream>
 
-ParticleSystem::ParticleSystem( unsigned int MaxParticleCount )
+ParticleSystem::ParticleSystem( unsigned int ParticleCount )
 {
-    Particles.resize( MaxParticleCount );
-    Vertices = sf::VertexArray( sf::Points, MaxParticleCount );
-    m_lifetime = 5.f ;
-    m_emitter = sf::Vector2f( 0.f, 0.f );
+    Particles.resize( ParticleCount );
+    Vertices = sf::VertexArray( sf::Points, ParticleCount );  
+    setEmitterPosition( { 0.f,0.f } );  
+    setEmitterWidth( 1.f );  
 }
 
-void ParticleSystem::addParticle( sf::Vector2f Position, sf::Color Color, sf::Vector2f Velocity, float LifeTime )
+void ParticleSystem::addParticle( sf::Color Color, sf::Vector2f Velocity, float LifeTime )
 {
-    
+    float x_var=0.f;
     // find first dead particle
     for ( unsigned int i=0; i<Particles.size(); ++i )
     {
@@ -20,18 +20,30 @@ void ParticleSystem::addParticle( sf::Vector2f Position, sf::Color Color, sf::Ve
             Particles[i].lifetime = LifeTime;
             Particles[i].velocity = Velocity;
             Vertices[i].color = Color;
-            Vertices[i].position = Position;
+            if ( EmitterWidth > 1 )
+                {
+                    x_var= static_cast <float> ( rand() ) / ( static_cast <float> ( RAND_MAX / EmitterWidth ) );
+                };
+            Vertices[i].position = sf::Vector2f( EmitterPosition.x + x_var, EmitterPosition.y );
             break;
         }
     }
     // if there is no particle dead - do not add new
-
-
 }
 
-void ParticleSystem::setEmitter( sf::Vector2f position )
+void ParticleSystem::setEmitterPosition( sf::Vector2f Position)
 {
-    m_emitter = position;
+    EmitterPosition = Position;
+}
+
+void ParticleSystem::setEmitterWidth( float Width )
+{
+    EmitterWidth = Width;
+}
+
+void ParticleSystem::setEmitterSpawnRate( float Rate )
+{
+    SpawnRate = Rate;
 }
 
 void ParticleSystem::update( float elapsed )
@@ -49,7 +61,7 @@ void ParticleSystem::update( float elapsed )
         Vertices[i].position += p.velocity * elapsed;
 
         // update the alpha (transparency) of the particle according to its lifetime
-        float ratio = p.lifetime / m_lifetime;
+        float ratio = p.lifetime / DefaultLifetime;
         Vertices[i].color.a = static_cast<sf::Uint8>( ratio * 255 );
     }
 
@@ -57,19 +69,16 @@ void ParticleSystem::update( float elapsed )
     if ( SpawnTimer >= SpawnRate )
     {
         // give a random velocity and lifetime to the particle
-        int ParticlesToAdd = SpawnTimer / SpawnRate;
+        int ParticlesToAdd = static_cast<int>( SpawnTimer / SpawnRate );
         for ( size_t i = 0; i < ParticlesToAdd; ++i )
         {
             float angle =  ( 85 + ( std::rand()/((RAND_MAX+1u)/10 ))) * 3.14f / 180.f ;
-            float speed = ( std::rand() % 50 ) + 50.f;
+            float speed = ( std::rand() % 50 ) + 100.f;
             sf::Vector2f velocity = sf::Vector2f( std::cos( angle ) * speed, std::sin( angle ) * speed );
-            addParticle( m_emitter, sf::Color( 0, 255, 100, 255 ), velocity, 5.f );
+            addParticle( sf::Color( 255, 100, 30, 255 ), velocity, 3.f );
         }
         SpawnTimer = 0;
      }
-
-
-
 }
 
 void ParticleSystem::draw( sf::RenderTarget& target, sf::RenderStates states ) const

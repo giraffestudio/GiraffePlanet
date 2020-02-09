@@ -6,11 +6,13 @@ class ParticleSystem : public sf::Drawable, public sf::Transformable
 {
 public:
 
-    ParticleSystem( unsigned int MaxParticleCount );
+    ParticleSystem( unsigned int ParticleCount );
 
-    void setEmitter( sf::Vector2f position );
+    void setEmitterPosition( sf::Vector2f Position);
+    void setEmitterWidth( float Width );
+    void setEmitterSpawnRate( float Rate );
     void update( float elapsed );
-    void addParticle( sf::Vector2f position, sf::Color Color, sf::Vector2f Velocity, float LifeTime );
+    void addParticle( sf::Color Color, sf::Vector2f Velocity, float LifeTime );
 
 private:
 
@@ -26,8 +28,9 @@ private:
 
     std::vector<Particle> Particles;
     sf::VertexArray Vertices;
-    float m_lifetime;
-    sf::Vector2f m_emitter;
-    float SpawnRate = 0.002f;
+    float DefaultLifetime = 3.f;
+    sf::Vector2f EmitterPosition;
+    float EmitterWidth;
+    float SpawnRate = 0.005f;
     float SpawnTimer = 0.f;
 };

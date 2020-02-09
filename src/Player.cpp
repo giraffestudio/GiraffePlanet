@@ -16,7 +16,8 @@ void Player::init( ResourceMan* pResourceManager )
 
 	for (auto& ds : DamageSprites) ds.setOrigin(56, 75 / 2);
 
-	smoke.setEmitter( sf::Vector2f( x, y ) );
+	smoke.setEmitterWidth( 10.f);
+	smoke.setEmitterSpawnRate( 0.1f );
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -46,6 +47,11 @@ void Player::update(float dt)
 	float moveY = dt * velocityY;
 	float moveX = dt * velocityX;
 
+	if ( ( velocityY != 0 ) || ( velocityX != 0 ) )
+		smoke.setEmitterSpawnRate( 0.002f );
+	else
+		smoke.setEmitterSpawnRate( 0.05f );
+
 	// set calculated position
 	setPosition(x + moveX, y + moveY);
 
@@ -62,7 +68,7 @@ void Player::update(float dt)
 		bullet.update(dt);
 	}
 
-	smoke.setEmitter( sf::Vector2f( x, y ) );
+	smoke.setEmitterPosition( sf::Vector2f( x-5, y ) );
 	smoke.update( dt );
 }
 

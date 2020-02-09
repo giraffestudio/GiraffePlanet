@@ -187,6 +187,7 @@
     <ClInclude Include="MeinMenu.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="rapidxml.hpp" />
     <ClInclude Include="ResourceMan.h" />
   </ItemGroup>
   <ItemGroup>
