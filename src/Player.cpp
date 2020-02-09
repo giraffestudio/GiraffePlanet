@@ -44,8 +44,50 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void Player::update(float dt)
 {
 	// calculate movement
-	float moveY = dt * velocityY;
-	float moveX = dt * velocityX;
+	if ( thrust.left ) {
+		accX = maxAccX;
+		velocityX += dt * accX;
+	}
+
+	if ( thrust.right ) {
+		accX = -maxAccX;
+		velocityX += dt * accX;
+	}
+
+	if ( thrust.front ) {
+		accY = -maxAccY;
+		velocityY += dt * accY;
+	}
+
+	if ( thrust.back ) {
+		accY = maxAccY;
+		velocityY += dt * accY;
+	}
+	
+	if ( !( thrust.left && thrust.right ) )	// no left or right thrust engaged
+	{
+		bool sign_before = std::signbit( velocityX );
+		accX = -std::copysignf( decX, velocityX);
+		velocityX += dt * accX;
+		if ( std::signbit( velocityX ) != sign_before ) // wyhamowa³ do zera
+		{
+			velocityX = 0;
+		}
+	}
+
+	if ( !( thrust.front && thrust.back ) )	// no left or right thrust engaged
+	{
+		bool sign_before = std::signbit( velocityY );
+		accY = -std::copysignf( decY, velocityY );
+		velocityY += dt * accY;
+		if ( std::signbit( velocityY ) != sign_before ) // wyhamowa³ do zera
+		{
+			velocityY = 0;
+		}
+	}
+	
+	float moveY = velocityY * dt;
+	float moveX = velocityX * dt; 
 
 	if ( ( velocityY != 0 ) || ( velocityX != 0 ) )
 		smoke.setEmitterSpawnRate( 0.002f );

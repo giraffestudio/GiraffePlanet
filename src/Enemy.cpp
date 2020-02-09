@@ -35,7 +35,7 @@ void Enemy::update(float dt)
 
 void Enemy::fire()
 {
-	bullets.emplace_back(x, y, -700.0f, resources, Bullet::Type::ENEMY_BULLET);
+	bullets.emplace_back(x, y, -500.0f, resources, Bullet::Type::ENEMY_BULLET);
 }
 
 void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const

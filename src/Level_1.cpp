@@ -72,12 +72,12 @@ void Level_1::handleInput()
 	}
 
 	if (sf::Keyboard::isKeyPressed( sf::Keyboard::Space) ) player->fire();
-	if (sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) ) { player->velocityX = player->maxSpeed; }
-	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) ) { player->velocityX = -player->maxSpeed; }
-	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) ) { player->velocityY = player->maxSpeed; }
-	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) ) { player->velocityY = -player->maxSpeed; }
-	if ( ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) == false ) && ( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) == false ) ) { player->velocityX = 0; }
-	if ( ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) == false ) && ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) == false ) ) { player->velocityY = 0; }
+	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) ) player->thrust.left = true; else player->thrust.left=false;
+	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) ) player->thrust.right = true; else player->thrust.right = false;
+	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) ) player->thrust.back = true; else player->thrust.back = false;
+	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) ) player->thrust.front = true; else player->thrust.front = false;
+	//if ( ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) == false ) && ( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) == false ) ) { player->velocityX = 0; }
+	//if ( ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) == false ) && ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) == false ) ) { player->velocityY = 0; }
 	
 }
 

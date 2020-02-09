@@ -28,11 +28,19 @@ public:
 	float x = 960;
 	float y = 900;
 
-	float maxSpeed = 550;	//	px per sec
-	float velocityX = maxSpeed;
-	float velocityY = 0;
+	float maxSpeed = 550.f;	//	px per sec
+	float maxAccX = 300.f;
+	float maxAccY = 260.f;
+	float velocityX = 0.f;
+	float velocityY = 0.f;
+	float accX = 0.f;
+	float accY = 0.f;
+	float decX = 20.f;
+	float decY = 20.f;
 	float fireRate = 5.0f;		// times per sec
 	unsigned int HP = 4;
+
+	struct { bool left; bool right; bool front; bool back; } thrust = { false, false, false, false };
 
 	std::vector<sf::Sprite> DamageSprites;
 	std::vector<Bullet> bullets;

@@ -11,7 +11,7 @@ private:
 	ResourceMan* resources;
 
 public:
-	enum Type { PLAYER_BULLET, ENEMY_BULLET };
+	enum class Type { PLAYER_BULLET, ENEMY_BULLET };
 	float x;
 	float y;
 	float velocity;
