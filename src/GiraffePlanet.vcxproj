@@ -176,6 +176,7 @@
     <ClCompile Include="MeinMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResourceMan.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Level_1.h" />
     <ClInclude Include="MeinMenu.h" />
+    <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ResourceMan.h" />
   </ItemGroup>

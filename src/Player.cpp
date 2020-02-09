@@ -1,4 +1,5 @@
 #include "Player.h"
+#include <memory>
 
 
 void Player::init( ResourceMan* pResourceManager )
@@ -14,10 +15,15 @@ void Player::init( ResourceMan* pResourceManager )
 	DamageSprites.emplace_back( sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_damage3.png" ) ) );
 
 	for (auto& ds : DamageSprites) ds.setOrigin(56, 75 / 2);
+
+	smoke.setEmitter( sf::Vector2f( x, y ) );
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
+	// draw angel dust :)
+	target.draw( smoke );
+	
 	// Draw player
 	target.draw(Sprite, states);
 
@@ -30,6 +36,8 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(bullet);
 	}
+
+	
 }
 
 void Player::update(float dt)
@@ -53,6 +61,9 @@ void Player::update(float dt)
 	{
 		bullet.update(dt);
 	}
+
+	smoke.setEmitter( sf::Vector2f( x, y ) );
+	smoke.update( dt );
 }
 
 
