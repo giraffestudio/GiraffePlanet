@@ -20,7 +20,9 @@ void Game::Init()
 	sf::Uint32 WindowStyle = sf::Style::Fullscreen;
 #endif // _DEBUG
 
-	window.create( FullScreen, "Game", WindowStyle );
+	Settings.antialiasingLevel = 8;
+	
+	window.create( FullScreen, "Game", WindowStyle, Settings );
 	window.setFramerateLimit( 75 );
 	window.setVerticalSyncEnabled( true );
 	window.setMouseCursorVisible( false );

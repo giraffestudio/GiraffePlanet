@@ -9,6 +9,19 @@ void Player::init( ResourceMan* pResourceManager )
 	Sprite = sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_orange.png" ) );
 	Sprite.setOrigin( 56, 75 / 2 );
 	Sprite.setPosition(x, y);
+	Sprite.setScale( { 3.f,3.f } );
+	
+	Animation IntroAnimation(&Sprite);
+	IntroAnimation.Type = Animation::AnimationType::SCALE;
+	IntroAnimation.duration = 1.f;
+	IntroAnimation.dest_scale = { 1.f,1.f };
+	IntroAnimation.begin_scale = { 20.f, 2.f};
+	ani.push_back( IntroAnimation );
+
+	IntroAnimation.Type = Animation::AnimationType::MOVE;
+	IntroAnimation.duration = 3.f;
+	IntroAnimation.relative_movement = { 100.f, 100.f };
+	ani.push_back( IntroAnimation );
 
 	DamageSprites.emplace_back( sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_damage1.png" ) ) );
 	DamageSprites.emplace_back( sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_damage2.png" ) ) );
@@ -36,9 +49,7 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	for (auto& bullet : bullets)
 	{
 		target.draw(bullet);
-	}
-
-	
+	}	
 }
 
 void Player::update(float dt)
@@ -112,6 +123,12 @@ void Player::update(float dt)
 
 	smoke.setEmitterPosition( sf::Vector2f( x-5, y ) );
 	smoke.update( dt );
+
+	// handle animations
+	for ( auto& a : ani)
+	{
+		a.update( dt );
+	}
 }
 
 
@@ -130,7 +147,7 @@ void Player::setPosition(float newx, float newy)
 		x = 56;
 	}
 	
-	if ( (newy > Height/ 2.0f+10.0f ) && (newy < 1080.0f-Height/2.0f-10.0f) ) y = newy;
+	if ( ( newy > Height / 2.0f + 10.0f ) && ( newy < 1080.0f - Height / 2.0f - 10.0f ) ) y = newy;
 	
 	Sprite.setPosition(x, y);
 	for( auto& ds : DamageSprites)

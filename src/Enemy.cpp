@@ -30,7 +30,9 @@ void Enemy::update(float dt)
 		bullet.update(dt);
 	}
 
-	this->Sprite.setRotation( rotation );
+	for ( auto & ani : Animations ) {
+		ani.update( dt );
+	}
 }
 
 void Enemy::fire()
@@ -49,4 +51,21 @@ void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		target.draw(bullet, states);
 	}
 
+}
+
+void Enemy::hit()
+{
+	rotation += 25 - rand() % 50;
+	Animation HitAnimation(&Sprite);
+	HitAnimation.Type = Animation::AnimationType::MOVE;
+	HitAnimation.duration = 0.6f;
+	HitAnimation.relative_movement = { 0,-20 };
+	Animations.push_back( HitAnimation );
+	
+	HitAnimation.Type = Animation::AnimationType::ROTATE;
+	HitAnimation.duration = 0.3f;
+	HitAnimation.dest_rotation = rotation;
+	Animations.push_back( HitAnimation );
+
+	HP--;
 }

@@ -20,8 +20,8 @@ private:
 
     struct Particle
     {
-        sf::Vector2f velocity;
-        float lifetime;
+        sf::Vector2f velocity = { 0.f,0.f };
+        float lifetime = 0.f;
     };
 
     void resetParticle( std::size_t index );
@@ -29,8 +29,8 @@ private:
     std::vector<Particle> Particles;
     sf::VertexArray Vertices;
     float DefaultLifetime = 3.f;
-    sf::Vector2f EmitterPosition;
-    float EmitterWidth;
+    sf::Vector2f EmitterPosition = { 0,0 };
+    float EmitterWidth = 0.f;
     float SpawnRate = 0.005f;
     float SpawnTimer = 0.f;
 };

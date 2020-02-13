@@ -22,7 +22,7 @@ public:
 	void Init();
 	sf::RenderWindow window;
 	sf::Mouse mouse;
-
+	sf::ContextSettings Settings;
 private:
 	
 	ResourceMan resources;

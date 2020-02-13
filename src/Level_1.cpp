@@ -76,9 +76,6 @@ void Level_1::handleInput()
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) ) player->thrust.right = true; else player->thrust.right = false;
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) ) player->thrust.back = true; else player->thrust.back = false;
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) ) player->thrust.front = true; else player->thrust.front = false;
-	//if ( ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) == false ) && ( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) == false ) ) { player->velocityX = 0; }
-	//if ( ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) == false ) && ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) == false ) ) { player->velocityY = 0; }
-	
 }
 
 void Level_1::handleCollisions()
@@ -94,10 +91,7 @@ void Level_1::handleCollisions()
 		{
 			if (bullet->boundingBox.intersects(enemy->boundingBox) == true)
 			{
-				enemy->rotation += 15 - rand() % 30;
-				
-				enemy->move(0,-10);
-				enemy->HP--;
+				enemy->hit();
 				if (enemy->HP == 0)
 				{
 					enemy = Enemies.erase(enemy);

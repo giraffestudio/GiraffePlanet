@@ -7,6 +7,7 @@
 #include "ResourceMan.h"
 #include "Bullet.h"
 #include "ParticleSystem.h"
+#include "Animation.h"
 
 class Player : public sf::Drawable
 {
@@ -45,6 +46,8 @@ public:
 	std::vector<sf::Sprite> DamageSprites;
 	std::vector<Bullet> bullets;
 	ParticleSystem smoke = ParticleSystem(10000);
+
+	std::vector<Animation> ani;
 
 	void init(ResourceMan* pResources);
 	void update(float dt);

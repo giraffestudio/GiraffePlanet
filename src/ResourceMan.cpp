@@ -3,6 +3,7 @@
 void ResourceMan::LoadResources()
 {
 	spriteSheet.loadFromFile("../RES/SpriteSheet/sheet_cor.png");
+	spriteSheet.setSmooth( true );
 	LoadSpriteSheetXML("../res/Spritesheet/sheet.xml");
 
 	// Loading of sounds
@@ -29,7 +30,8 @@ void ResourceMan::LoadSpriteSheetXML(std::string fileName)
 {
 	std::vector<char> spriteSheetXML;
 
-	spriteRects.clear();	std::ifstream file;
+	spriteRects.clear();
+	std::ifstream file;
 	file.open(fileName);
 	file.unsetf(std::ios::skipws);
 

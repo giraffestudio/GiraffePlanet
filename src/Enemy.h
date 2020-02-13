@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "ResourceMan.h"
 #include "Bullet.h"
+#include "Animation.h"
 
 class Enemy : public sf::Drawable
 {
@@ -18,11 +19,14 @@ private:
 	
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+	std::vector<Animation> Animations;
+
 public:
 	Enemy(float x_pos, float y_pos, ResourceMan* pResources);
 	void update(float dt);
 	void fire();
 	void move(float dx, float dy) { x = x + dx; y = y + dy; Sprite.setPosition(x, y); };
+	void hit();
 
 	sf::Rect<float> boundingBox = { 0,0,Width,Height };
 	std::vector<Bullet> bullets;
