@@ -33,6 +33,8 @@ void Enemy::update(float dt)
 	for ( auto & ani : Animations ) {
 		ani.update( dt );
 	}
+
+	debris.update( dt );
 }
 
 void Enemy::fire()
@@ -43,6 +45,9 @@ void Enemy::fire()
 void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	// draw enemy
+	
+	target.draw( debris );
+	
 	target.draw(Sprite, states);
 	
 	// and his stinking bullets
@@ -66,6 +71,15 @@ void Enemy::hit()
 	HitAnimation.duration = 0.3f;
 	HitAnimation.dest_rotation = rotation;
 	Animations.push_back( HitAnimation );
+		
+	debris.setEmitterPosition( { x,y } );
+	debris.setEmitterWidth( 1.f );
+	debris.setEmitterSpawnRate( 0.0005f );
+	debris.setSpeed( 455.f, 685.f );
+	debris.setColor( { static_cast<sf::Uint8>(rand()%250),215,60,255 } );
+	debris.setParticleLifetime( 0.8f );
+	
+	debris.enable( 0.10f );
 
 	HP--;
 }

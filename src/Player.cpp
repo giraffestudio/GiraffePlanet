@@ -31,6 +31,10 @@ void Player::init( ResourceMan* pResourceManager )
 
 	smoke.setEmitterWidth( 10.f);
 	smoke.setEmitterSpawnRate( 0.1f );
+	smoke.setDirection( 85.f, 95.f );
+	smoke.setSpeed( 50.f, 150.f );
+	smoke.setColor( { 255, 100, 30, 255 } );
+	smoke.enable();
 }
 
 void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -86,7 +90,7 @@ void Player::update(float dt)
 		}
 	}
 
-	if ( !( thrust.front && thrust.back ) )	// no left or right thrust engaged
+	if ( !( thrust.front && thrust.back ) )	// no front or back thrust engaged
 	{
 		bool sign_before = std::signbit( velocityY );
 		accY = -std::copysignf( decY, velocityY );
@@ -106,6 +110,12 @@ void Player::update(float dt)
 		smoke.setEmitterSpawnRate( 0.05f );
 
 	// set calculated position
+	if ( ( x + moveX <= Width/2 ) || ( x + moveX >= 1920 - Width/2 ) )
+	{ 
+ 		velocityX = 0;
+		moveX = 0;
+	}
+
 	setPosition(x + moveX, y + moveY);
 
 	boundingBox.left = x - 56;

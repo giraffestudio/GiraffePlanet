@@ -5,6 +5,7 @@
 #include "ResourceMan.h"
 #include "Bullet.h"
 #include "Animation.h"
+#include "ParticleSystem.h"
 
 class Enemy : public sf::Drawable
 {
@@ -20,6 +21,8 @@ private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	std::vector<Animation> Animations;
+
+	ParticleSystem debris = ParticleSystem( 3500 );
 
 public:
 	Enemy(float x_pos, float y_pos, ResourceMan* pResources);

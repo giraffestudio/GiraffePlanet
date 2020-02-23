@@ -30,8 +30,8 @@ public:
 	float y = 900;
 
 	float maxSpeed = 550.f;	//	px per sec
-	float maxAccX = 300.f;
-	float maxAccY = 260.f;
+	float maxAccX = 400.f;
+	float maxAccY = 360.f;
 	float velocityX = 0.f;
 	float velocityY = 0.f;
 	float accX = 0.f;

@@ -1,9 +1,16 @@
 #include "ParticleSystem.h"
+#include <random>
 #include <iostream>
+
+constexpr auto M_PI = 3.14159265358979323846;
 
 ParticleSystem::ParticleSystem( unsigned int ParticleCount )
 {
     Particles.resize( ParticleCount );
+    for ( auto& particle : Particles ) {
+        particle.lifetime = 0.f;
+        particle.velocity = { 0.f,0.f };
+    }
     Vertices = sf::VertexArray( sf::Points, ParticleCount );  
     setEmitterPosition( { 0.f,0.f } );  
     setEmitterWidth( 1.f );  
@@ -46,43 +53,98 @@ void ParticleSystem::setEmitterSpawnRate( float Rate )
     SpawnRate = Rate;
 }
 
+void ParticleSystem::setDirection( float Start, float End )
+{
+    DirStart = Start;
+    DirEnd = End;
+}
+
+void ParticleSystem::setSpeed( float min, float max )
+{
+    MaxSpeed = max;
+    MinSpeed = min;
+}
+
+void ParticleSystem::setColor( sf::Color BaseColor )
+{
+    Color = BaseColor;
+}
+
+void ParticleSystem::setParticleLifetime( float Lifetime )
+{
+    ParticleLifetime = Lifetime;
+}
+
 void ParticleSystem::update( float elapsed )
 {
+    if ( enabled == false ) return;
+    
+    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen( rd() ); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_real_distribution<float> rnd_speed( MinSpeed, MaxSpeed );
+    std::uniform_real_distribution<float> rnd_angle( DirStart, DirEnd );
+
     for ( std::size_t i = 0; i < Particles.size(); ++i )
     {
         // update the particle lifetime
         Particle& p = Particles[i];
         p.lifetime -= elapsed;
 
-        // if the particle is dead, respawn it
-        if ( p.lifetime <= 0 ) Particles[i].lifetime = 0;
+        
+        if ( p.lifetime <= 0 ) // if the particle is dead
+        {
+            Particles[i].lifetime = 0;
+        }
+        else // update particle
+        {
+            // update the position of the corresponding vertex
+            Vertices[i].position += p.velocity * elapsed;
 
-        // update the position of the corresponding vertex
-        Vertices[i].position += p.velocity * elapsed;
-
-        // update the alpha (transparency) of the particle according to its lifetime
-        float ratio = p.lifetime / DefaultLifetime;
-        Vertices[i].color.a = static_cast<sf::Uint8>( ratio * 255 );
+            // update the alpha (transparency) of the particle according to its lifetime
+            float ratio = p.lifetime / ParticleLifetime;
+            Vertices[i].color.a = static_cast<sf::Uint8>( ratio * 255 );
+        }      
     }
 
-    SpawnTimer += elapsed;
-    if ( SpawnTimer >= SpawnRate )
+    CurrentEnabledTime += elapsed;
+    if ( ( EnabledTime != -1 ) && ( CurrentEnabledTime >= EnabledTime ) )
     {
-        // give a random velocity and lifetime to the particle
-        int ParticlesToAdd = static_cast<int>( SpawnTimer / SpawnRate );
-        for ( size_t i = 0; i < ParticlesToAdd; ++i )
+     
+        return;
+    }
+    else
+    {
+        SpawnTimer += elapsed;
+        if ( SpawnTimer >= SpawnRate )
         {
-            float angle =  ( 85 + ( std::rand()/((RAND_MAX+1u)/10 ))) * 3.14f / 180.f ;
-            float speed = ( std::rand() % 50 ) + 100.f;
-            sf::Vector2f velocity = sf::Vector2f( std::cos( angle ) * speed, std::sin( angle ) * speed );
-            addParticle( sf::Color( 255, 100, 30, 255 ), velocity, 3.f );
+            // give a random velocity and lifetime to the particle
+            int ParticlesToAdd = static_cast<int>( SpawnTimer / SpawnRate );
+            for ( size_t i = 0; i < ParticlesToAdd; ++i )
+            {
+                float angle = rnd_angle( gen ) * 3.1415f / 180.f;
+                float speed = rnd_speed( gen );
+                sf::Vector2f velocity = sf::Vector2f( std::cos( angle ) * speed, std::sin( angle ) * speed );
+                addParticle( Color, velocity, ParticleLifetime );
+            }
+            SpawnTimer = 0;
         }
-        SpawnTimer = 0;
-     }
+    }
+}
+
+void ParticleSystem::enable( float EnabledForSec )
+{
+    enabled = true;
+    EnabledTime = EnabledForSec;
+}
+
+void ParticleSystem::disable( void )
+{
+    enabled = false;
 }
 
 void ParticleSystem::draw( sf::RenderTarget& target, sf::RenderStates states ) const
 {
+    if ( enabled == false ) return;
     // apply the transform
     states.transform *= getTransform();
 
