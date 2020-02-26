@@ -32,7 +32,6 @@ public:
 	void hit();
 
 	sf::Rect<float> boundingBox = { 0,0,Width,Height };
-	std::vector<Bullet> bullets;
 
 	float x;
 	float y;

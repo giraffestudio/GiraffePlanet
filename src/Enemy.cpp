@@ -20,7 +20,7 @@ void Enemy::update(float dt)
 	boundingBox.left = x - Width/2.0f;
 	boundingBox.top = y - Height/2.0f;
 
-	// say goodbye to bullets that fly off screen
+	/*// say goodbye to bullets that fly off screen
 	auto isBulletOffScreen = [](Bullet testedBullet) { return ((testedBullet.y < 0) || (testedBullet.y > 1080)); };
 	bullets.erase(std::remove_if(bullets.begin(), bullets.end(), isBulletOffScreen), bullets.end());
 
@@ -28,7 +28,7 @@ void Enemy::update(float dt)
 	for (auto& bullet : bullets)
 	{
 		bullet.update(dt);
-	}
+	}*/
 
 	for ( auto & ani : Animations ) {
 		ani.update( dt );
@@ -39,7 +39,7 @@ void Enemy::update(float dt)
 
 void Enemy::fire()
 {
-	bullets.emplace_back(x, y, -500.0f, resources, Bullet::Type::ENEMY_BULLET);
+	//bullets.emplace_back(x, y, -500.0f, resources, Bullet::Owner::ENEMY);
 }
 
 void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -51,10 +51,10 @@ void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	target.draw(Sprite, states);
 	
 	// and his stinking bullets
-	for (auto& bullet : bullets)
+	/*for (auto& bullet : bullets)
 	{
 		target.draw(bullet, states);
-	}
+	}*/
 
 }
 

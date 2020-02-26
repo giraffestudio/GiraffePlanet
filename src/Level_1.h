@@ -5,6 +5,7 @@
 #include "GameState.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Bullet.h"
 
 class Level_1 :	public GameState
 {
@@ -13,16 +14,21 @@ private:
 	float enemyFireRate = 2.0f;		// times per second
 	sf::Music music;
 	sf::Sprite Background;
+	
+	std::vector<Bullet> Bullets;
+	std::vector<Enemy> enemies;
+
 
 public:
-	Level_1(Player* pplayer, sf::RenderWindow* pwindow, ResourceMan* pResources) : GameState (pplayer, pwindow, pResources) {};
+	Level_1( Player* pplayer, sf::RenderWindow* pwindow, ResourceMan* pResources ) : GameState( pplayer, pwindow, pResources ) {};
 
 	void Init();
 	virtual void draw();
 	virtual void update(const float dt);
+	void handleEnemiesAI( const float dt );
 	virtual void handleInput();
 	void handleCollisions();
-
-	std::vector<Enemy> Enemies;
+	void addBullet( Bullet::Owner owner, float const x, float const y, float const speed );
+	void playerFire();
 };
 

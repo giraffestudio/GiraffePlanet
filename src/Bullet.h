@@ -11,7 +11,7 @@ private:
 	ResourceMan* resources;
 
 public:
-	enum class Type { PLAYER_BULLET = 1, ENEMY_BULLET = 2 };
+	enum class Owner { PLAYER = 1, ENEMY = 2 };
 	float x;
 	float y;
 	float velocity;
@@ -19,8 +19,9 @@ public:
 	float Height = 37;
 	sf::Rect<float> boundingBox = { 0,0,Width,Height };
 	sf::Sprite Sprite;
-	
-	Bullet(float x_pos, float y_pos, float _velocity, ResourceMan* pResources, Type bulletType);
+	Owner owner;
+
+	Bullet(float x_pos, float y_pos, float _velocity, ResourceMan* pResources, Owner bulletOwner);
 	void setPosition(float newx, float newy);
 	void update(float dt);
 };

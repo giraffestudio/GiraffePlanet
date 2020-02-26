@@ -1,13 +1,13 @@
 #include "MeinMenu.h"
 
-void MeinMenu::update( const float dt )
+/*void MeinMenu::update( const float dt )
 {
 
 
 }
 void MeinMenu::handleInput()
 {
-	sf::Event event;
+	/*sf::Event event;
 	while ( window->pollEvent( event ) )
 	{
 		if ( event.type == sf::Event::KeyPressed )
@@ -24,7 +24,7 @@ void MeinMenu::handleInput()
 	if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) ) player->velocityY = -player->maxSpeed;
 	if ( ( sf::Keyboard::isKeyPressed( sf::Keyboard::Left ) == false ) && ( sf::Keyboard::isKeyPressed( sf::Keyboard::Right ) == false ) ) player->velocityX = 0;
 	if ( ( sf::Keyboard::isKeyPressed( sf::Keyboard::Down ) == false ) && ( sf::Keyboard::isKeyPressed( sf::Keyboard::Up ) == false ) ) player->velocityY = 0;
-
+	
 }
 void MeinMenu::draw()
 {
@@ -33,4 +33,4 @@ void MeinMenu::draw()
 
 
 	window->display();
-}
+}*/

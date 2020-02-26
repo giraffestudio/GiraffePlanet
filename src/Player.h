@@ -13,19 +13,21 @@ class Player : public sf::Drawable
 {
 private:
 	ResourceMan* resources = nullptr;
-	
-	sf::Sprite Sprite;
-	sf::Clock fireClock;
 
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+	sf::Sprite Sprite;
+	
+
+	virtual void draw( sf::RenderTarget& target, sf::RenderStates states ) const;
 
 public:
 
 	float Width = 112.0f;
 	float Height = 75.0f;
 
+	sf::Clock fireClock;
+
 	sf::Rect<float>boundingBox = { 0,0,Width,Height };		// Watch for member initialization order !
-	
+
 	float x = 960;
 	float y = 900;
 
@@ -45,13 +47,13 @@ public:
 
 	std::vector<sf::Sprite> DamageSprites;
 	std::vector<Bullet> bullets;
-	ParticleSystem smoke = ParticleSystem(10000);
+	ParticleSystem smoke = ParticleSystem( 10000 );
 
 	std::vector<Animation> ani;
 
-	void init(ResourceMan* pResources);
-	void update(float dt);
-	void setPosition(float newx, float newy);
+	void init( ResourceMan* pResources );
+	void update( float dt );
+	void setPosition( float newx, float newy );
 	void fire();
 };
 

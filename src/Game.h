@@ -1,5 +1,3 @@
-#pragma once
-
 #include <iostream>
 #include <string>
 #include <SFML/System.hpp>
@@ -9,8 +7,9 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
-#include "Level_1.h"
+#include "GameState.h"
 #include "ResourceMan.h"
+
 
 class Game
 {
@@ -31,6 +30,6 @@ private:
 	sf::Time frameRenderTime;
 
 	Player player;
-	Level_1* level_1 = nullptr;
+	GameState* gamestate = nullptr;
 
 };

@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "GameState.h"
 #include <memory>
 
 
@@ -20,7 +21,7 @@ void Player::init( ResourceMan* pResourceManager )
 
 	IntroAnimation.Type = Animation::AnimationType::MOVE;
 	IntroAnimation.duration = 3.f;
-	IntroAnimation.relative_movement = { 100.f, 100.f };
+	IntroAnimation.relative_movement = { -100.f, 100.f };
 	ani.push_back( IntroAnimation );
 
 	DamageSprites.emplace_back( sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_damage1.png" ) ) );
@@ -170,9 +171,11 @@ void Player::fire()
  {
 	// if the time since last firing is too short then abort
     if (fireClock.getElapsedTime().asSeconds() < 1.0f / fireRate) return;
-
+	
+	
 	// add new bullet to vector of player's bullets
- 	bullets.emplace_back(x, y, 900.0f, resources, Bullet::Type::PLAYER_BULLET);
+ 	bullets.emplace_back(x, y, 900.0f, resources, Bullet::Owner::PLAYER);
+	
 
 	// restart timer
 	fireClock.restart();

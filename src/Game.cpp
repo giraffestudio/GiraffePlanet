@@ -4,7 +4,7 @@
 
 Game::~Game()
 {
-	delete level_1;
+	delete gamestate;
 }
 
 void Game::Init()
@@ -28,8 +28,8 @@ void Game::Init()
 	window.setMouseCursorVisible( false );
 
 	player.init( &resources );
-	level_1 = new Level_1( &player, &window, &resources );
-	level_1->Init();
+	gamestate = new GameState( &player, &window, &resources );
+	gamestate->LoadLevel1();
 }
 
 void Game::Run()
@@ -37,8 +37,8 @@ void Game::Run()
 	while (window.isOpen())
 	{
 		frameRenderTime = FrameClock.restart();
-		level_1->handleInput();
-		level_1->update(frameRenderTime.asSeconds());
-		level_1->draw();
+		gamestate->handleInput();
+		gamestate->update(frameRenderTime.asSeconds());
+		gamestate->draw();
 	}
 }
