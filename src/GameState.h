@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Enemy.h"
+#include "Text.h"
 
 class GameState
 {
@@ -14,7 +15,7 @@ private:
 	sf::Music music;
 	sf::Sprite Background;
 	sf::RenderWindow* window;
-	
+	std::vector<Text> texts;
 	Player* player;
 	ResourceMan* resources;
 

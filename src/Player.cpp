@@ -14,15 +14,16 @@ void Player::init( ResourceMan* pResourceManager )
 	
 	Animation IntroAnimation(&Sprite);
 	IntroAnimation.Type = Animation::AnimationType::SCALE;
-	IntroAnimation.duration = 1.f;
+	IntroAnimation.duration = 0.3f;
 	IntroAnimation.dest_scale = { 1.f,1.f };
 	IntroAnimation.begin_scale = { 20.f, 2.f};
-	ani.push_back( IntroAnimation );
+	animations.push_back( IntroAnimation );
 
-	IntroAnimation.Type = Animation::AnimationType::MOVE;
-	IntroAnimation.duration = 3.f;
-	IntroAnimation.relative_movement = { -100.f, 100.f };
-	ani.push_back( IntroAnimation );
+	IntroAnimation.Type = Animation::AnimationType::ALPHA;
+	IntroAnimation.duration = 1.f;
+	IntroAnimation.begin_alpha = 0.f;
+	IntroAnimation.end_alpha = 255.f;
+	animations.push_back( IntroAnimation );
 
 	DamageSprites.emplace_back( sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_damage1.png" ) ) );
 	DamageSprites.emplace_back( sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_damage2.png" ) ) );
@@ -59,6 +60,8 @@ void Player::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Player::update(float dt)
 {
+	if ( enabled == false ) return;
+	
 	// calculate movement
 	if ( thrust.left ) {
 		accX = maxAccX;
@@ -117,26 +120,16 @@ void Player::update(float dt)
 		moveX = 0;
 	}
 
-	setPosition(x + moveX, y + moveY);
+	setPosition(Sprite.getPosition().x + moveX, Sprite.getPosition().y + moveY);
 
 	boundingBox.left = x - 56;
 	boundingBox.top = y - 75.0f / 2.f;
-
-	// say goodbye to bullets that are off-screen
-	auto isBulletOffScreen = [](Bullet testedBullet) { return ((testedBullet.y < 0) || (testedBullet.y > 1080)); };
-	bullets.erase(std::remove_if(bullets.begin(), bullets.end(), isBulletOffScreen), bullets.end());
-
-	// update bullets that still are with us
-	for (auto& bullet : bullets)
-	{
-		bullet.update(dt);
-	}
 
 	smoke.setEmitterPosition( sf::Vector2f( x-5, y ) );
 	smoke.update( dt );
 
 	// handle animations
-	for ( auto& a : ani)
+	for ( auto& a : animations)
 	{
 		a.update( dt );
 	}
@@ -182,4 +175,16 @@ void Player::fire()
 
 	// play some  shitty sound
 	resources->playSample("Laser_1");
+}
+
+void Player::enable()
+{
+	enabled = true;
+	for ( auto& animation : animations ) animation.enable();
+}
+
+void Player::disable()
+{
+	enabled = false;
+	for ( auto& animation : animations ) animation.disable();
 }

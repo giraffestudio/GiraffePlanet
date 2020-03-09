@@ -14,24 +14,15 @@ Enemy::Enemy(float x_pos, float y_pos, ResourceMan* pResources)
 
 void Enemy::update(float dt)
 {
-	//float moveY = dt * velocity;
-	//setPosition(x, y - moveY);
-
 	boundingBox.left = x - Width/2.0f;
 	boundingBox.top = y - Height/2.0f;
 
-	/*// say goodbye to bullets that fly off screen
-	auto isBulletOffScreen = [](Bullet testedBullet) { return ((testedBullet.y < 0) || (testedBullet.y > 1080)); };
-	bullets.erase(std::remove_if(bullets.begin(), bullets.end(), isBulletOffScreen), bullets.end());
+	// delete animation that are finished
+	auto isAnimationFinished = []( Animation testedAnimation ) { return testedAnimation.isFinshed(); };
+	animations.erase( std::remove_if( animations.begin(), animations.end(), isAnimationFinished ), animations.end() );
 
-	// update bullets that still enjoy flying through space
-	for (auto& bullet : bullets)
-	{
-		bullet.update(dt);
-	}*/
-
-	for ( auto & ani : Animations ) {
-		ani.update( dt );
+	for ( auto & animations : animations ) {
+		animations.update( dt );
 	}
 
 	debris.update( dt );
@@ -39,38 +30,25 @@ void Enemy::update(float dt)
 
 void Enemy::fire()
 {
-	//bullets.emplace_back(x, y, -500.0f, resources, Bullet::Owner::ENEMY);
+
 }
 
 void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	// draw enemy
-	
 	target.draw( debris );
-	
 	target.draw(Sprite, states);
-	
-	// and his stinking bullets
-	/*for (auto& bullet : bullets)
-	{
-		target.draw(bullet, states);
-	}*/
-
 }
 
 void Enemy::hit()
 {
 	rotation += 25 - rand() % 50;
-	Animation HitAnimation(&Sprite);
-	HitAnimation.Type = Animation::AnimationType::MOVE;
-	HitAnimation.duration = 0.6f;
-	HitAnimation.relative_movement = { 0,-20 };
-	Animations.push_back( HitAnimation );
+	Animation HitAnimation(&Sprite, true);
+	HitAnimation.AddMovement( { 0,-20 }, 0.6f );
+	animations.push_back( HitAnimation );
 	
-	HitAnimation.Type = Animation::AnimationType::ROTATE;
-	HitAnimation.duration = 0.3f;
-	HitAnimation.dest_rotation = rotation;
-	Animations.push_back( HitAnimation );
+	HitAnimation.AddRotation( rotation, 0.6f );
+	animations.push_back( HitAnimation );
 		
 	debris.setEmitterPosition( { x,y } );
 	debris.setEmitterWidth( 1.f );
@@ -82,4 +60,16 @@ void Enemy::hit()
 	debris.enable( 0.10f );
 
 	HP--;
+}
+
+void Enemy::enable()
+{
+	enabled = true;
+	for ( auto& animation : animations ) animation.enable();
+}
+
+void Enemy::disable()
+{
+	enabled = false;
+	for ( auto& animation : animations ) animation.disable();
 }

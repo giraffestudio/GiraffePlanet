@@ -16,7 +16,6 @@ void ResourceMan::LoadResources()
 	SoundS.insert( std::make_pair( "GameOver_1", sound ) );
 
 	//load backgrounds
-
 	sf::Texture tex;
 	tex.loadFromFile( "../res/Backgrounds/purple.png" );
 	tex.setRepeated( true );
@@ -24,6 +23,13 @@ void ResourceMan::LoadResources()
 	tex.loadFromFile( "../res/Backgrounds/black.png" );
 	tex.setRepeated( true );
 	Backgrounds.insert( std::make_pair( "Black", tex ) );
+
+	// load fonts
+	sf::Font font;
+	font.loadFromFile( "../res/fonts/atari.ttf" );
+	Fonts.insert( std::make_pair( "Atari", font ) );
+	font.loadFromFile( "../res/fonts/arial.ttf" );
+	Fonts.insert( std::make_pair( "Arial", font ) );
 }
 
 void ResourceMan::LoadSpriteSheetXML(std::string fileName)
@@ -79,4 +85,9 @@ void ResourceMan::playSample( std::string name )
 sf::Texture& ResourceMan::getBackground( std::string name )
 {
 	return Backgrounds[name];
+}
+
+sf::Font& ResourceMan::getFont( std::string name )
+{
+	return Fonts[name];
 }

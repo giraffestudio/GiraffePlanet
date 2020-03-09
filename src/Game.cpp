@@ -34,6 +34,7 @@ void Game::Init()
 
 void Game::Run()
 {
+	FrameClock.restart();
 	while (window.isOpen())
 	{
 		frameRenderTime = FrameClock.restart();

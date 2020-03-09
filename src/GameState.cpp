@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "Text.h"
 #include <random>
 
 
@@ -10,8 +11,7 @@ void GameState::draw()
 	window->draw( *player );
 
 	// draw those filthy enemies
-	for ( auto& enemy : enemies )	window->draw( enemy );
-
+	for ( auto& enemy : enemies ) window->draw( enemy );
 	for ( auto& bullet : bullets ) window->draw( bullet );
 
 	window->display();
@@ -24,6 +24,10 @@ void GameState::update( const float dt )
 
 	handleEnemiesAI( dt );
 	checkCollisions();
+
+	// say goodbye to bullets that are off-screen
+	auto isBulletOffScreen = []( Bullet testedBullet ) { return ( ( testedBullet.y < 0 ) || ( testedBullet.y > 1080 ) ); };
+	bullets.erase( std::remove_if( bullets.begin(), bullets.end(), isBulletOffScreen ), bullets.end() );
 
 	// update bullets that still are with us
 	for ( auto& bullet : bullets )
@@ -149,4 +153,17 @@ void GameState::LoadLevel1()
 
 	Background.setTexture( resources->getBackground( "Black" ) );
 	Background.setTextureRect( { 0, 0, 1920, 1080 } );
+
+	texts.emplace_back( Text( resources->getFont( "Arial" ), "Level One", Text::TextPosition::CENTERED ) );
+	
+	window->draw( texts[0]);
+	window->display();
+	sf::Clock ck;
+	while ( ck.getElapsedTime().asSeconds() < 3 );
+
+	// enable player
+	player->enable();
+
+	// enable enemies
+	for ( auto& enemy : enemies ) { enemy.enable(); };
 }

@@ -178,6 +178,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ResourceMan.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="rapidxml.hpp" />
     <ClInclude Include="ResourceMan.h" />
+    <ClInclude Include="Text.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\shader\shader.frag" />

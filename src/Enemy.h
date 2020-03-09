@@ -14,13 +14,14 @@ private:
 	
 	float Width = 93.0f;
 	float Height = 84.0f;
-	
+	bool enabled = false;
+
 	sf::IntRect ssRect_green = { 425, 552, 93, 84 };		// Watch for member initialization order !
 	sf::Sprite Sprite;
 	
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	std::vector<Animation> Animations;
+	std::vector<Animation> animations;
 
 	ParticleSystem debris = ParticleSystem( 3500 );
 
@@ -30,6 +31,8 @@ public:
 	void fire();
 	void move(float dx, float dy) { x = x + dx; y = y + dy; Sprite.setPosition(x, y); };
 	void hit();
+	void enable();
+	void disable();
 
 	sf::Rect<float> boundingBox = { 0,0,Width,Height };
 

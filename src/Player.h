@@ -9,17 +9,23 @@
 #include "ParticleSystem.h"
 #include "Animation.h"
 
-class Player : public sf::Drawable
+class Player : public sf::Drawable, sf::Transformable
 {
 private:
 	ResourceMan* resources = nullptr;
-
 	sf::Sprite Sprite;
-	
-
 	virtual void draw( sf::RenderTarget& target, sf::RenderStates states ) const;
 
+	bool enabled = false;
+
 public:
+
+	void init( ResourceMan* pResources );
+	void update( float dt );
+	void setPosition( float newx, float newy );
+	void fire();
+	void enable();
+	void disable();
 
 	float Width = 112.0f;
 	float Height = 75.0f;
@@ -49,11 +55,6 @@ public:
 	std::vector<Bullet> bullets;
 	ParticleSystem smoke = ParticleSystem( 10000 );
 
-	std::vector<Animation> ani;
-
-	void init( ResourceMan* pResources );
-	void update( float dt );
-	void setPosition( float newx, float newy );
-	void fire();
+	std::vector<Animation> animations;
 };
 
