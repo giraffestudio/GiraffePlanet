@@ -10,19 +10,17 @@ void Player::init( ResourceMan* pResourceManager )
 	Sprite = sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_orange.png" ) );
 	Sprite.setOrigin( 56, 75 / 2 );
 	Sprite.setPosition(x, y);
-	Sprite.setScale( { 3.f,3.f } );
+	
 	
 	Animation IntroAnimation(&Sprite);
-	IntroAnimation.Type = Animation::AnimationType::SCALE;
+	/*IntroAnimation.Type = Animation::AnimationType::SCALE;
 	IntroAnimation.duration = 0.3f;
 	IntroAnimation.dest_scale = { 1.f,1.f };
 	IntroAnimation.begin_scale = { 20.f, 2.f};
-	animations.push_back( IntroAnimation );
+	animations.push_back( IntroAnimation );*/
 
 	IntroAnimation.Type = Animation::AnimationType::ALPHA;
-	IntroAnimation.duration = 1.f;
-	IntroAnimation.begin_alpha = 0.f;
-	IntroAnimation.end_alpha = 255.f;
+	IntroAnimation.AddAlpha(0.f, 255.f, 1.f);
 	animations.push_back( IntroAnimation );
 
 	DamageSprites.emplace_back( sf::Sprite( resources->getSpriteSheet(), resources->getSpriteRect( "playerShip2_damage1.png" ) ) );
@@ -127,6 +125,10 @@ void Player::update(float dt)
 
 	smoke.setEmitterPosition( sf::Vector2f( x-5, y ) );
 	smoke.update( dt );
+
+	// delete animation that are finished
+	auto isAnimationFinished = []( Animation testedAnimation ) { return testedAnimation.isFinshed(); };
+	animations.erase( std::remove_if( animations.begin(), animations.end(), isAnimationFinished ), animations.end() );
 
 	// handle animations
 	for ( auto& a : animations)

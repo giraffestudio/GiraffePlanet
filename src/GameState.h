@@ -23,6 +23,7 @@ private:
 	float enemyFireRate = 2.0f;		// times per second
 
 	int currentLevel = 1;
+	void LevelIntro();
 
 public:
 	

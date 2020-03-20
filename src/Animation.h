@@ -3,23 +3,28 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+
+
 class Animation
 {
 private:
-	sf::Sprite* Sprite;
-	bool enabled = false;
-	bool finished = false;
+	sf::Sprite* Sprite = nullptr;	// pointer to a sprite
+	//sf::Text* Text = nullptr;		// pointer to a text
+	bool enabled = false;			// is animation enabled (playing)
+	bool finished = false;			// is animation finished (used in deleting)
 
 public:
-	Animation( sf::Sprite* OwnerSprite, bool isEnabled = false ) { Sprite = OwnerSprite; enabled = isEnabled; };
+	Animation( sf::Sprite* Object, bool isEnabled = false ) { Sprite = Object; enabled = isEnabled; };
+	//Animation( sf::Text* Object, bool isEnabled = false ) { Text = Object; enabled = isEnabled; };
 	void AddMovement( sf::Vector2f movement, float duration_sec );
 	void AddRotation( const float rotation_deg, float duration_sec );
+	void AddAlpha( const float beg_value, const float end_value, float duration_sec );
 	void update( const float dt );
 	void enable() {	enabled = true; };
 	void disable() { enabled = false; };
 	bool isFinshed() { return finished; };
 
-	enum class AnimationType { NONE=0, MOVE=1, ROTATE=2, SCALE=3, ALPHA=4 };
+	enum class AnimationType { NONE = 0, MOVE = 1, ROTATE = 2, SCALE = 3, ALPHA = 4 };
 	AnimationType Type = AnimationType::NONE;	
 
 	sf::Vector2f relative_movement = { 0.f,0.f};
@@ -37,6 +42,4 @@ public:
 	float end_alpha = 255.f;		// alpha to reach
 	float duration = 0.f;			// animation duration in seconds
 	float timer = 0.f;				// animation timer
-
-
 };

@@ -42,12 +42,12 @@ void Enemy::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 void Enemy::hit()
 {
-	rotation += 25 - rand() % 50;
+	rotation += 425 - rand() % 950;
 	Animation HitAnimation(&Sprite, true);
 	HitAnimation.AddMovement( { 0,-20 }, 0.6f );
 	animations.push_back( HitAnimation );
 	
-	HitAnimation.AddRotation( rotation, 0.6f );
+	HitAnimation.AddRotation( rotation, 1.6f );
 	animations.push_back( HitAnimation );
 		
 	debris.setEmitterPosition( { x,y } );

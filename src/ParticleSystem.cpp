@@ -11,7 +11,7 @@ ParticleSystem::ParticleSystem( unsigned int ParticleCount )
         particle.lifetime = 0.f;
         particle.velocity = { 0.f,0.f };
     }
-    Vertices = sf::VertexArray( sf::Points, ParticleCount );  
+    Vertices = sf::VertexArray( sf::PrimitiveType::Points, ParticleCount );  
     setEmitterPosition( { 0.f,0.f } );  
     setEmitterWidth( 1.f );  
 }
