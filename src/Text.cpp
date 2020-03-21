@@ -1,11 +1,11 @@
 #include "Text.h"
 
-Text::Text( sf::Font& pfont, std::string str, TextPosition pos, sf::Vector2f xy )
+Text::Text( sf::Font& pfont, unsigned int size, std::string str, size_t position_flags, sf::Vector2f xy )
 {
 	text.setFont( pfont );
 	text.setString( str );
 	text.setFillColor( sf::Color::White );
-	text.setCharacterSize( 100 );
+	text.setCharacterSize( size );
 	text.setStyle( sf::Text::Regular );
 	
 	sf::FloatRect bounds = text.getGlobalBounds();
@@ -19,17 +19,16 @@ Text::Text( sf::Font& pfont, std::string str, TextPosition pos, sf::Vector2f xy 
 	texture->display();
 	sprite.setTexture( texture->getTexture() );
 	
-	if ( pos == TextPosition::CENTERED )
+	if ( position_flags & static_cast<size_t>(Alignement::HORIZONTAL_CENTER ) ) 
 	{
-		float new_x = ( 1920.f - bounds.width ) / 2.f;
-		float new_y = ( 1080.f - bounds.height ) / 2.f;
-		sprite.setPosition( { new_x, new_y } );
-	}
-	else
-	{
-		sprite.setPosition( xy );
+		xy.x = ( 1920.f - bounds.width ) / 2.f;
 	}
 	
+	if ( position_flags & static_cast<size_t>( Alignement::VERTICAL_CENTER ) ) 
+	{		
+		xy.y = ( 1080.f - bounds.height ) / 2.f;		
+	}
+	sprite.setPosition( xy );
 }
 
 void Text::draw( sf::RenderTarget& target, sf::RenderStates states ) const

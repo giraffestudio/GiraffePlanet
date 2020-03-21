@@ -165,12 +165,17 @@ void GameState::LoadLevel1()
 
 void GameState::LevelIntro()
 {
-	texts.emplace_back( Text( resources->getFont( "Atari" ), "Level One", Text::TextPosition::CENTERED ) );
+	texts.emplace_back( Text( resources->getFont( "Atari" ), 80 ,"Level One", static_cast<size_t>( Text::Alignement::HORIZONTAL_CENTER ) | static_cast<size_t>( Text::Alignement::VERTICAL_CENTER ) ));
+	texts.emplace_back( Text( resources->getFont( "HelveticaNeueLTPro-LtCn" ), 40, "The insertion planet", static_cast<size_t>( Text::Alignement::HORIZONTAL_CENTER ), { 0,650 } ) );
 
 	Animation AlphaAni(texts[0].getSprite(),true);
-	AlphaAni.AddAlpha( 255.f, 0.f, 2.f );
+	AlphaAni.AddAlpha( 0.f, 255.f, 1.f );
 	
 	texts[0].animations.push_back( AlphaAni );
+
+	Animation SecAni( texts[1].getSprite(), true );
+	SecAni.AddAlpha( 0.f, 255.f, 2.f );
+	texts[1].animations.push_back( SecAni );
 
 	sf::Clock ck;
 	sf::Clock frameClock;
@@ -181,10 +186,36 @@ void GameState::LevelIntro()
 	{
 		dt = frameClock.restart();
 		texts[0].animations[0].update( dt.asSeconds() );
-		
+		texts[1].animations[0].update( dt.asSeconds() );
+
 		window->clear();
 		window->draw( texts[0] );
+		window->draw( texts[1] );
 		window->display();	
+	}
+
 	
+	texts[0].animations.clear();
+	texts[1].animations.clear();
+	
+	AlphaAni.AddAlpha( 255.f, 0.f, 1.f );
+	AlphaAni.timer = 0.f;
+	texts[0].animations.push_back( AlphaAni );
+
+	SecAni.AddAlpha( 255.f, 0.f, 1.f );
+	SecAni.timer = 0.f;
+	texts[1].animations.push_back( SecAni );
+
+	frameClock.restart();
+	while ( ck.getElapsedTime().asSeconds() < 4.1f )
+	{
+		dt = frameClock.restart();
+		texts[0].animations[0].update( dt.asSeconds() );
+		texts[1].animations[0].update( dt.asSeconds() );
+
+		window->clear();
+		window->draw( texts[0] );
+		window->draw( texts[1] );
+		window->display();
 	}
 }

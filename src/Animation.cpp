@@ -23,6 +23,7 @@ void Animation::AddAlpha( const float beg_value, const float end_value, float du
 {
 	begin_alpha = beg_value;
 	end_alpha = end_value;
+	current_alpha = beg_value;
 	Type = AnimationType::ALPHA;
 	duration = duration_sec;
 }
@@ -75,7 +76,7 @@ void Animation::update( const float dt )
 		case AnimationType::ALPHA:
 			if ( timer < duration )
 			{
-				float step = abs( end_alpha - begin_alpha ) / duration;
+				float step =  (end_alpha - begin_alpha) / duration;
 				current_alpha += step * dt;	
 				Sprite->setColor( sf::Color( 255, 255, 255, static_cast<sf::Uint8>( current_alpha ) ) );	
 			}

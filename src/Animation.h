@@ -27,15 +27,15 @@ public:
 	enum class AnimationType { NONE = 0, MOVE = 1, ROTATE = 2, SCALE = 3, ALPHA = 4 };
 	AnimationType Type = AnimationType::NONE;	
 
-	sf::Vector2f relative_movement = { 0.f,0.f};
+	sf::Vector2f relative_movement = { 0.f,0.f };
 	sf::Vector2f begin_position = { 0.f, 0.f };
 	sf::Vector2f end_position = { 0.f, 0.f };
 	sf::Vector2f dest_scale = { 1.f,1.f };
 	sf::Vector2f begin_scale = { 1.f,1.f };
 
-	float current_rotation = 0.f;
+	float current_rotation = 0.f;	// current rotation
 	float dest_rotation = 0.f;		// rotation to reach
-	float begin_rotation = 0.f;
+	float begin_rotation = 0.f;		// beginning rotation
 
 	float current_alpha = 0.f;		// current alpha
 	float begin_alpha = 255.f;		// starting alpha

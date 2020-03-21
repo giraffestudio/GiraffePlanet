@@ -30,6 +30,10 @@ void ResourceMan::LoadResources()
 	Fonts.insert( std::make_pair( "Atari", font ) );
 	font.loadFromFile( "../res/fonts/arial.ttf" );
 	Fonts.insert( std::make_pair( "Arial", font ) );
+	font.loadFromFile( "../res/fonts/HNPro.ttf" );
+	Fonts.insert( std::make_pair( "HNPro", font ) );
+	font.loadFromFile( "../res/fonts/HelveticaNeueLTPro-LtCn.ttf" );
+	Fonts.insert( std::make_pair( "HelveticaNeueLTPro-LtCn", font ) );
 }
 
 void ResourceMan::LoadSpriteSheetXML(std::string fileName)

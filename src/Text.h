@@ -17,9 +17,10 @@ private:
 public:
 	std::vector<Animation> animations;
 
-	enum class TextPosition { CENTERED = 1, DEFINED = 2 };
+	enum class Alignement : size_t { XY = 0, HORIZONTAL_CENTER = 1, VERTICAL_CENTER = 2 };
 
-	Text( sf::Font& pfont, std::string str, TextPosition pos, sf::Vector2f xy = {0.f,0.f} );
+
+	Text( sf::Font& pfont, unsigned int size, std::string str, size_t position_flags, sf::Vector2f xy = {0.f,0.f} );
 	sf::Sprite* getSprite() { return &sprite; };
 };
 
