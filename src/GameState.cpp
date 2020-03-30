@@ -1,10 +1,12 @@
 #include "GameState.h"
 #include "Text.h"
+#include "Collision.h"
 #include <random>
 
 
 void GameState::draw()
 {
+	// draw background
 	window->draw( Background );
 
 	// draw our brave player
@@ -84,7 +86,8 @@ void GameState::checkCollisions()
 {
 	// player <-> enemy collisions
 	for ( auto& enemy : enemies )
-		if ( enemy.boundingBox.intersects( player->boundingBox ) == true ) window->close();
+		if ( Collision::PixelPerfectTest( player->getSprite(), enemy.getSprite(), 0u, resources->getBitmask() )) window->close();
+		
 
 	// player bullets <-> enemy collision detection
 	for ( auto bullet = bullets.begin(); bullet!=bullets.end(); ++bullet )
@@ -94,7 +97,7 @@ void GameState::checkCollisions()
 			case Bullet::Owner::PLAYER:
 					for ( std::vector<Enemy>::iterator enemy = enemies.begin(); enemy != enemies.end(); ++enemy )
 					{
-						if ( bullet->boundingBox.intersects( enemy->boundingBox ) == true )
+						if(Collision::PixelPerfectTest( bullet->getSprite(), enemy->getSprite(), 0u, resources->getBitmask()) )
 						{
 							enemy->hit();
 							if ( enemy->HP == 0 )
@@ -108,7 +111,7 @@ void GameState::checkCollisions()
 					break;
 
 			case Bullet::Owner::ENEMY:
-					if ( bullet->boundingBox.intersects( player->boundingBox ) == true )
+					if( Collision::PixelPerfectTest(bullet->getSprite(), player->getSprite(), 0, resources->getBitmask()) )		
 					{
 						//sound.setBuffer(sbGameOver);
 						//sound.play();
@@ -169,12 +172,12 @@ void GameState::LevelIntro()
 	texts.emplace_back( Text( resources->getFont( "HelveticaNeueLTPro-LtCn" ), 40, "The insertion planet", static_cast<size_t>( Text::Alignement::HORIZONTAL_CENTER ), { 0,650 } ) );
 
 	Animation AlphaAni(texts[0].getSprite(),true);
-	AlphaAni.AddAlpha( 0.f, 255.f, 1.f );
+	AlphaAni.AddAlpha( 0.f, 255.f, 5.8f );
 	
 	texts[0].animations.push_back( AlphaAni );
 
 	Animation SecAni( texts[1].getSprite(), true );
-	SecAni.AddAlpha( 0.f, 255.f, 2.f );
+	SecAni.AddAlpha( 0.f, 255.f, 5.8f );
 	texts[1].animations.push_back( SecAni );
 
 	sf::Clock ck;
@@ -182,7 +185,7 @@ void GameState::LevelIntro()
 	sf::Time dt;
 	
 	frameClock.restart();
-	while ( ck.getElapsedTime().asSeconds() < 3 ) 
+	while ( ck.getElapsedTime().asSeconds() < 5.8 ) 
 	{
 		dt = frameClock.restart();
 		texts[0].animations[0].update( dt.asSeconds() );
@@ -198,16 +201,16 @@ void GameState::LevelIntro()
 	texts[0].animations.clear();
 	texts[1].animations.clear();
 	
-	AlphaAni.AddAlpha( 255.f, 0.f, 1.f );
+	AlphaAni.AddAlpha( 255.f, 0.f, 5.8f );
 	AlphaAni.timer = 0.f;
 	texts[0].animations.push_back( AlphaAni );
 
-	SecAni.AddAlpha( 255.f, 0.f, 1.f );
+	SecAni.AddAlpha( 255.f, 0.f, 5.8f );
 	SecAni.timer = 0.f;
 	texts[1].animations.push_back( SecAni );
 
 	frameClock.restart();
-	while ( ck.getElapsedTime().asSeconds() < 4.1f )
+	while ( ck.getElapsedTime().asSeconds() < 5.8f*2 )
 	{
 		dt = frameClock.restart();
 		texts[0].animations[0].update( dt.asSeconds() );

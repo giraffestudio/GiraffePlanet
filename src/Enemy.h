@@ -33,6 +33,7 @@ public:
 	void hit();
 	void enable();
 	void disable();
+	sf::Sprite getSprite() { return Sprite; };
 
 	sf::Rect<float> boundingBox = { 0,0,Width,Height };
 

@@ -12,6 +12,7 @@ class ResourceMan
 {
 private:	
 	sf::Texture spriteSheet;
+	std::vector<sf::Uint8> TextureBitmask;
 	std::map<std::string, sf::IntRect> spriteRects;
 	std::map<std::string, sf::SoundBuffer> SoundS;
 	std::map < std::string, sf::Texture > Backgrounds;
@@ -25,7 +26,8 @@ public:
 	sf::Texture& getBackground( std::string name );
 	sf::Font& getFont( std::string name );
 	void LoadResources();
-
+	std::vector<sf::Uint8> createBitmask(sf::Image& tex);
+	std::vector<sf::Uint8>& getBitmask() { return TextureBitmask; };
 	// some shitty stuff to get rid of
 	sf::Sound sound;
 };

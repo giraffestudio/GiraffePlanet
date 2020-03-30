@@ -24,5 +24,6 @@ public:
 	Bullet(float x_pos, float y_pos, float _velocity, ResourceMan* pResources, Owner bulletOwner);
 	void setPosition(float newx, float newy);
 	void update(float dt);
+	sf::Sprite getSprite() { return Sprite; };
 };
 

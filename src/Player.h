@@ -26,6 +26,7 @@ public:
 	void fire();
 	void enable();
 	void disable();
+	sf::Sprite getSprite() { return Sprite; };
 
 	float Width = 112.0f;
 	float Height = 75.0f;

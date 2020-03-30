@@ -2,7 +2,11 @@
 
 void ResourceMan::LoadResources()
 {
-	spriteSheet.loadFromFile("../RES/SpriteSheet/sheet_cor.png");
+	sf::Image SpriteSheetImage;
+	SpriteSheetImage.loadFromFile( "../RES/SpriteSheet/sheet_cor.png" );
+	TextureBitmask = createBitmask( SpriteSheetImage );
+
+	spriteSheet.loadFromImage( SpriteSheetImage );
 	spriteSheet.setSmooth( true );
 	LoadSpriteSheetXML("../res/Spritesheet/sheet.xml");
 
@@ -34,6 +38,16 @@ void ResourceMan::LoadResources()
 	Fonts.insert( std::make_pair( "HNPro", font ) );
 	font.loadFromFile( "../res/fonts/HelveticaNeueLTPro-LtCn.ttf" );
 	Fonts.insert( std::make_pair( "HelveticaNeueLTPro-LtCn", font ) );
+}
+
+std::vector<sf::Uint8> ResourceMan::createBitmask( sf::Image& img )
+{
+	std::vector<sf::Uint8> bitmask( static_cast<size_t>(img.getSize().x) * static_cast<size_t>(img.getSize().y) );
+	
+	for ( size_t y = 0; y < img.getSize().y; ++y )
+		for ( size_t x = 0; x < img.getSize().x; ++x )
+			bitmask[y * img.getSize().y + x] = img.getPixel( static_cast<unsigned int>(x), static_cast<unsigned int>(y) ).a;
+	return bitmask;
 }
 
 void ResourceMan::LoadSpriteSheetXML(std::string fileName)
