@@ -1,9 +1,11 @@
 #include "Game.h"
 #include <algorithm>
 #include <random>
+#include "imgui-SFML.h"
 
 Game::~Game()
 {
+	ImGui::SFML::Shutdown();
 	delete gamestate;
 }
 
@@ -27,6 +29,8 @@ void Game::Init()
 	window.setVerticalSyncEnabled( true );
 	window.setMouseCursorVisible( false );
 
+	ImGui::SFML::Init( window );
+
 	player.init( &resources );
 	gamestate = new GameState( &player, &window, &resources );
 	gamestate->LoadLevel1();
@@ -41,5 +45,15 @@ void Game::Run()
 		gamestate->handleInput();
 		gamestate->update(frameRenderTime.asSeconds());
 		gamestate->draw();
+		window.resetGLStates();
+		window.pollEvent( event );
+		ImGui::SFML::ProcessEvent( event );
+		ImGui::SFML::Update( window, frameRenderTime );
+		ImGui::Begin( "Hello, world!" );
+		ImGui::Button( "Look at this pretty button" );
+		ImGui::ShowDemoWindow();
+		ImGui::End();
+		ImGui::SFML::Render();
+		window.display();
 	}
 }

@@ -1,9 +1,14 @@
 #include <iostream>
 #include <string>
+
 #include <SFML/System.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+
+#include "imgui.h"
+#include "imgui-SFML.h"
+
 #include "Player.h"
 #include "Bullet.h"
 #include "Enemy.h"
@@ -28,6 +33,7 @@ private:
 
 	sf::Clock FrameClock;
 	sf::Time frameRenderTime;
+	sf::Event event;
 
 	Player player;
 	GameState* gamestate = nullptr;

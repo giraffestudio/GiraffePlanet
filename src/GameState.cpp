@@ -16,7 +16,7 @@ void GameState::draw()
 	for ( auto& enemy : enemies ) window->draw( enemy );
 	for ( auto& bullet : bullets ) window->draw( bullet );
 
-	window->display();
+	//window->display();
 }
 
 void GameState::update( const float dt )
@@ -157,7 +157,7 @@ void GameState::LoadLevel1()
 	Background.setTexture( resources->getBackground( "Black" ) );
 	Background.setTextureRect( { 0, 0, 1920, 1080 } );
 
-	LevelIntro();
+	//ShowLevelIntro();
 
 	// enable player
 	player->enable();
@@ -166,7 +166,7 @@ void GameState::LoadLevel1()
 	for ( auto& enemy : enemies ) { enemy.enable(); };
 }
 
-void GameState::LevelIntro()
+void GameState::ShowLevelIntro()
 {
 	texts.emplace_back( Text( resources->getFont( "Atari" ), 80 ,"Level One", static_cast<size_t>( Text::Alignement::HORIZONTAL_CENTER ) | static_cast<size_t>( Text::Alignement::VERTICAL_CENTER ) ));
 	texts.emplace_back( Text( resources->getFont( "HelveticaNeueLTPro-LtCn" ), 40, "The insertion planet", static_cast<size_t>( Text::Alignement::HORIZONTAL_CENTER ), { 0,650 } ) );
