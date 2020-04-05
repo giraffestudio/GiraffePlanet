@@ -38,20 +38,27 @@ void Game::Init()
 
 void Game::Run()
 {
+	ImGuiWindowFlags window_flags = 0 | ImGuiWindowFlags_NoMove;
+	
 	FrameClock.restart();
 	while (window.isOpen())
 	{
 		frameRenderTime = FrameClock.restart();
 		gamestate->handleInput();
 		gamestate->update(frameRenderTime.asSeconds());
-		gamestate->draw();
 		window.resetGLStates();
+		gamestate->draw();
+		
 		window.pollEvent( event );
 		ImGui::SFML::ProcessEvent( event );
+		
 		ImGui::SFML::Update( window, frameRenderTime );
-		ImGui::Begin( "Hello, world!" );
+		
+		ImGui::Begin( "Hello, world!", nullptr, window_flags );
 		ImGui::Button( "Look at this pretty button" );
 		ImGui::ShowDemoWindow();
+		
+
 		ImGui::End();
 		ImGui::SFML::Render();
 		window.display();

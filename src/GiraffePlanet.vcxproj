@@ -167,6 +167,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\Build\imgui-sfml\imgui-SFML.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\Build\imgui\imgui.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\Build\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\Build\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\..\..\..\..\Build\imgui\imgui_widgets.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -174,11 +179,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GiraffePlanet.cpp" />
-    <ClCompile Include="imgui-SFML.cpp" />
-    <ClCompile Include="imgui.cpp" />
-    <ClCompile Include="imgui_demo.cpp" />
-    <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="Level_1.cpp" />
     <ClCompile Include="MeinMenu.cpp" />
     <ClCompile Include="Player.cpp" />
