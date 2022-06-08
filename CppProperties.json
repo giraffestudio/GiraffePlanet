@@ -7,7 +7,8 @@
       "name": "x64-Release",
       "includePath": [
         "${env.INCLUDE}",
-        "${workspaceRoot}\\**"
+        "${workspaceRoot}\\**",
+        "C:\\Users\\epic007\\CBuild\\imgui-sfml"
       ],
       "defines": [
         "WIN32",

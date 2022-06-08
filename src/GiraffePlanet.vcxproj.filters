@@ -57,19 +57,19 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Build\imgui\imgui.cpp">
+    <ClCompile Include="..\..\..\..\..\CBuild\imgui\imgui.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Build\imgui\imgui_demo.cpp">
+    <ClCompile Include="..\..\..\..\..\CBuild\imgui\imgui_demo.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Build\imgui\imgui_draw.cpp">
+    <ClCompile Include="..\..\..\..\..\CBuild\imgui\imgui_draw.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Build\imgui\imgui_widgets.cpp">
+    <ClCompile Include="..\..\..\..\..\CBuild\imgui\imgui_widgets.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Build\imgui-sfml\imgui-SFML.cpp">
+    <ClCompile Include="..\..\..\..\..\CBuild\imgui-sfml\imgui-SFML.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
