@@ -57,6 +57,9 @@
     <ClCompile Include="Collision.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\CBuild\imgui-sfml\imgui-SFML.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\..\CBuild\imgui\imgui.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
@@ -66,10 +69,10 @@
     <ClCompile Include="..\..\..\..\..\CBuild\imgui\imgui_draw.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\CBuild\imgui\imgui_widgets.cpp">
+    <ClCompile Include="..\..\..\..\..\CBuild\imgui\imgui_tables.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\CBuild\imgui-sfml\imgui-SFML.cpp">
+    <ClCompile Include="..\..\..\..\..\CBuild\imgui\imgui_widgets.cpp">
       <Filter>Pliki źródłowe</Filter>
     </ClCompile>
   </ItemGroup>
